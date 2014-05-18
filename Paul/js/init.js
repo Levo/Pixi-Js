@@ -39,6 +39,8 @@ var game = game || {};
 			'chop' 		: 32,		// space
 			'walkleft' 	: 65,		// a 
 			'walkright' : 68,		// d
+			'walkup'	: 87,		// w
+			'walkdown'	: 83,		// s
 			'shake'		: 66,
 		});
 

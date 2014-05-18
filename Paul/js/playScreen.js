@@ -1,7 +1,6 @@
 game.PlayScreen = function() {
 	this.entities = [];
 
-
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
 	};
@@ -10,7 +9,7 @@ game.PlayScreen = function() {
 		for (var i = 0; i < this.entities.length; i++) {
 			this.entities[i].update(delta);
 		}
-	}
+	};
 
 	this.enter = function() {
 		this.paul = new game.Paul();
