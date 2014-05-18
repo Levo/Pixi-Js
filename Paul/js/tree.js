@@ -5,6 +5,7 @@ game.Tree = function(position) {
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
 	this.textureTop = PIXI.Texture.fromImage("sprites/top.png");
+	this.textureAreaSkew = PIXI.Texture.fromImage("sprites/areaskew.png");
 
 	// Trunk
 	this.trunk = new PIXI.Sprite(this.texture);
@@ -14,6 +15,8 @@ game.Tree = function(position) {
 	this.middle = new PIXI.Sprite(this.textureMiddle);
 	// Bottom
 	this.bottom = new PIXI.Sprite(this.textureBottom);
+	// Area skew
+	this.area = new PIXI.Sprite(this.textureAreaSkew);
 
 	// Adding the 3 parts to the trunk
 	// Order matters for the layering
@@ -26,6 +29,13 @@ game.Tree = function(position) {
 	this.trunk.anchor.y = 0.35;
 	this.trunk.position.x = position.x;
 	this.trunk.position.y = position.y;
+
+	this.area.anchor.x = 0.5;
+	this.area.anchor.y = 0.5;
+	this.area.position.y = this.trunk.position.y + 15;
+	this.area.position.x = this.trunk.position.x;
+	this.area.alpha  = 0.3;
+
 
 	// Anchoring the 3 tree parts
 
@@ -49,6 +59,7 @@ game.Tree = function(position) {
 	this.bottom.position.y = 0;
 
 	// Add to stage
+	game.stage.addChild(this.area);
 	game.stage.addChild(this.trunk);
 	
 	var tree = this;
