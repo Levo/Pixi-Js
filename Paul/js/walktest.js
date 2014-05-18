@@ -1,20 +1,5 @@
 var game = game || {};
 
-game.Tree = function(object) {
-	this.texture = object['texture'] || null;
-	//this.sprite = object.sprite || null;
-
-	this.update = function(delta) {
-
-	};
-};
-
-var myTree = new game.Tree({
-	texture: '',
-	sprite: '',
-});
-
-
 game.WalkTest = function() {
 
 	// create a texture from an image path

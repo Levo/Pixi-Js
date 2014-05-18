@@ -75,7 +75,6 @@ var game = game || {};
 		// Update Tweens
 		TWEEN.update();
 
-		console.log(game.stage);
 		// Render
 		game.renderer.render(game.stage);
 
