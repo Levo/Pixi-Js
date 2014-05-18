@@ -2,10 +2,33 @@ var game = game || {};
 
 game.WalkingState = function() {
 	this.name = "Walking";
-	this.handleInput = function(input) {
+	this.walkingForce = 2000.0;
+	this.handleInput = function(input, entity) {
+
+		entity.force.x = entity.force.y = 0.0;
+
+		if (game.input.keydown("walkleft")) {
+			entity.force.x = -this.walkingForce;
+			noInput = false;
+		}
+		else if (game.input.keydown("walkright")) {
+			entity.force.x = this.walkingForce;
+		}
+
+		if (game.input.keydown("walkup")) {
+			entity.force.y = -this.walkingForce;
+		}
+		else if (game.input.keydown("walkdown")) {
+			entity.force.y = this.walkingForce;
+		}
+
+		// this comparison seems to work OK.
+		if (entity.force.x === 0.0 && entity.force.y === 0.0) {
+			entity.velocity.x = entity.velocity.y = 0.0;
+		}
 
 	};
-	this.update = function(delta) {
+	this.update = function(delta, entity) {
 
 	};
 };
@@ -33,10 +56,11 @@ game.Paul = function() {
 	this.stateText.setText(this.currentState.name);
 
 	this.handleInput = function(input) {
-		this.currentState.handleInput(input);
+		this.currentState.handleInput(input, this);
 	};
 
 	this.update = function(delta) {
-		this.currentState.update(delta);
+		this.currentState.update(delta, this);
+		this.updateSteering(delta);
 	};
 };

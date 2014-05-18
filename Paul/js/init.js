@@ -80,9 +80,6 @@ var game = game || {};
 
 		// Render
 		game.renderer.render(game.stage);
-
-		// Clear input values.
-		game.input.update();
 	};
 
 

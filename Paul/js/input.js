@@ -7,7 +7,8 @@ var Input = (function() {
 	};
 
 	var keyup = function(event) {
-		keysup[event.keyCode] = true;
+		keysup[event.keyCode] 	= true;
+		keysdown[event.keyCode] = false;
 	};
 
 	var Input = function(buttons) {
@@ -25,11 +26,6 @@ var Input = (function() {
 	Input.prototype.keydown = function(keystring) {
 		var keyCode = this.keymap[keystring];
 		return keysdown[keyCode];
-	};
-
-	Input.prototype.update = function() {
-		keysdown = {};
-		keysup	= {};
 	};
 
 	return Input;
