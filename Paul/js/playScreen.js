@@ -14,8 +14,11 @@ game.PlayScreen = function() {
 
 	this.enter = function() {
 		this.paul = new game.Paul();
+		this.tree = new game.Tree();
+
 
 		this.entities.push(this.paul);
+		this.entities.push(this.tree);
 	};
 
 	this.exit = function() {

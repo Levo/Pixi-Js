@@ -28,7 +28,7 @@ var game = game || {};
 		game.stage = new PIXI.Stage(green);
 
 		// create a renderer instance
-		game.renderer = PIXI.autoDetectRenderer(400, 300);
+		game.renderer = PIXI.autoDetectRenderer(1280, 720);
 
 		// add the renderer view element to the DOM
 		document.body.appendChild(game.renderer.view);
@@ -38,7 +38,8 @@ var game = game || {};
 			'start' 	: 13,		// enter
 			'chop' 		: 32,		// space
 			'walkleft' 	: 65,		// a 
-			'walkright' : 68		// d
+			'walkright' : 68,		// d
+			'shake'		: 66,
 		});
 
 		game.trigger(game.PlayScreen);
