@@ -41,7 +41,7 @@ var game = game || {};
 			'walkright' : 68		// d
 		});
 
-		game.trigger(game.WalkTest);
+		game.trigger(game.PlayScreen);
 	};
 
 	game.trigger = function(screenType) {
@@ -75,6 +75,7 @@ var game = game || {};
 		// Update Tweens
 		TWEEN.update();
 
+		console.log(game.stage);
 		// Render
 		game.renderer.render(game.stage);
 
