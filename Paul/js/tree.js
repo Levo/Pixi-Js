@@ -1,10 +1,12 @@
 var game = game || {};
 
 game.Tree = function() {
+
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
 	this.textureTop = PIXI.Texture.fromImage("sprites/top.png");
+	this.area = PIXI.Texture.fromImage("sprites/areaskew.png");
 
 	// Trunk
 	this.trunk = new PIXI.Sprite(this.texture);
@@ -14,6 +16,8 @@ game.Tree = function() {
 	this.middle = new PIXI.Sprite(this.textureMiddle);
 	// Bottom
 	this.bottom = new PIXI.Sprite(this.textureBottom);
+	// Area
+	this.area = new PIXI.Sprite(this.area);
 
 	// Adding the 3 parts to the trunk
 	// Order matters for the layering
@@ -26,6 +30,13 @@ game.Tree = function() {
 	this.trunk.anchor.y = 0.35;
 	this.trunk.position.x = 150;
 	this.trunk.position.y = 100;
+
+	// Area Anchor
+	this.area.anchor.x = 0.5;
+	this.area.anchor.x = 0.5;
+	this.area.position.y = this.trunk.position.y - 25;
+	this.area.position.x = this.trunk.position.x;
+	this.area.alpha  = 0.3;
 
 	// Anchoring the 3 tree parts
 
@@ -49,53 +60,44 @@ game.Tree = function() {
 	this.bottom.position.y = 0;
 
 	// Add to stage
+	game.stage.addChild(this.area);
 	game.stage.addChild(this.trunk);
 	
 	var tree = this;
 
 	var TopShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 800 )
+	    .repeat( Infinity )
 	    .easing( TWEEN.Easing.Bounce.In )
 	    .onUpdate( function () {
 	        tree.top.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        TopShake.start();
-	    } )
 
     var MiddleShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 650 )
+	    .repeat( Infinity )
 	    .easing( TWEEN.Easing.Bounce.In )
 	    .onUpdate( function () {
 	        tree.middle.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        MiddleShake.start();
-    } )
+
 
    	var BottomShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 700 )
+	    .repeat( Infinity )
 	    .easing( TWEEN.Easing.Bounce.In )
 	    .onUpdate( function () {
 	        tree.bottom.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        BottomShake.start();
-    } )
 
    	var TrunkShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 1080 )
+	    .repeat( Infinity )
 	    .easing( TWEEN.Easing.Elastic.Out )
 	    .onUpdate( function () {
 	        tree.trunk.position.y = this.x + 100;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        TrunkShake.start();
-    } )
+
 
 	TrunkShake.start();
 	TopShake.start();
