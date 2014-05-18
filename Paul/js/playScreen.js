@@ -1,9 +1,6 @@
 game.PlayScreen = function() {
 	this.entities = [];
 
-	this.paul = new game.Paul();
-
-	this.entities.push(this.paul);
 
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
@@ -16,6 +13,9 @@ game.PlayScreen = function() {
 	}
 
 	this.enter = function() {
+		this.paul = new game.Paul();
+
+		this.entities.push(this.paul);
 	};
 
 	this.exit = function() {
