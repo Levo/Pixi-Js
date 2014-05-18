@@ -1,6 +1,6 @@
 var game = game || {};
 
-game.Tree = function() {
+game.Tree = function(position) {
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
@@ -24,8 +24,8 @@ game.Tree = function() {
 	// Trunk Anchor
 	this.trunk.anchor.x = 0.5;
 	this.trunk.anchor.y = 0.35;
-	this.trunk.position.x = 150;
-	this.trunk.position.y = 100;
+	this.trunk.position.x = position.x;
+	this.trunk.position.y = position.y;
 
 	// Anchoring the 3 tree parts
 
@@ -59,10 +59,7 @@ game.Tree = function() {
 	    .onUpdate( function () {
 	        tree.top.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        TopShake.start();
-	    } )
+	   	.repeat(Infinity);
 
     var MiddleShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 650 )
@@ -70,10 +67,7 @@ game.Tree = function() {
 	    .onUpdate( function () {
 	        tree.middle.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        MiddleShake.start();
-    } )
+	   	.repeat(Infinity);
 
    	var BottomShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 700 )
@@ -81,10 +75,7 @@ game.Tree = function() {
 	    .onUpdate( function () {
 	        tree.bottom.position.y = this.x;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        BottomShake.start();
-    } )
+	    .repeat(Infinity);
 
    	var TrunkShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 1080 )
@@ -92,10 +83,7 @@ game.Tree = function() {
 	    .onUpdate( function () {
 	        tree.trunk.position.y = this.x + 100;
 	    } )
-	   	.onComplete( function() {
-	        this.x = 0;
-	        TrunkShake.start();
-    } )
+	   	.repeat(Infinity);
 
 	TrunkShake.start();
 	TopShake.start();

@@ -14,7 +14,7 @@ game.PlayScreen = function() {
 
 	this.enter = function() {
 		this.paul = new game.Paul();
-		this.tree = new game.Tree();
+		this.tree = new game.Tree({ x: 150, y: 100 });
 
 
 		this.entities.push(this.paul);
