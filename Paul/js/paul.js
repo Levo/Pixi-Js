@@ -1,12 +1,5 @@
 var game = game || {};
 
-var Moving = {
-	velocity: { x: 0.0, y: 0.0 },
-	heading: { x: 0.0, y: 0.0 },
-	mass: 1.0,
-	maxSpeed: 10.0,
-};
-
 game.WalkingState = function() {
 	this.name = "Walking";
 	this.handleInput = function(input) {
