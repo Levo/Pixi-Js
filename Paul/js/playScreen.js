@@ -13,9 +13,13 @@ game.PlayScreen = function() {
 
 	this.enter = function() {
 		this.paul = new game.Paul();
+<<<<<<< HEAD
 		_.extend(game.Paul.prototype, game.Moving);
 
 		this.tree = new game.Tree({ x: 150, y: 100 });
+=======
+		this.tree = new game.Tree({ x: 150, y: 100 }, 24);
+>>>>>>> lumber && tree.js animations
 
 
 		this.entities.push(this.paul);
@@ -24,4 +28,4 @@ game.PlayScreen = function() {
 
 	this.exit = function() {
 	};
-};
+};	

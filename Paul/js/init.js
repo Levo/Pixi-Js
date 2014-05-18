@@ -84,6 +84,8 @@ var game = game || {};
 		// Clear input values.
 		game.input.update();
 	};
+
+
 })();
 
 window.onload = function() {

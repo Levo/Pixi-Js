@@ -1,6 +1,8 @@
 var game = game || {};
 
-game.Tree = function(position) {
+game.Tree = function(position, lumber) {
+	this.lumber = lumber;
+
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
@@ -63,14 +65,7 @@ game.Tree = function(position) {
 	game.stage.addChild(this.trunk);
 	
 	var tree = this;
-
-	var TopShake = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2.0 }, 800 )
-	    .easing( TWEEN.Easing.Bounce.In )
-	    .onUpdate( function () {
-	        tree.top.position.y = this.x;
-	    } )
-	   	.repeat(Infinity);
+	console.log(this.lumber);
 
     var MiddleShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 650 )
@@ -94,12 +89,36 @@ game.Tree = function(position) {
 	    .onUpdate( function () {
 	        tree.trunk.position.y = this.x + 100;
 	    } )
-	   	.repeat(Infinity);
+	    .onComplete( function() {
+	    	this.x = 0;
+	    	tree.lumber -= 2;
+	    	if(tree.lumber === 16){
+	    		tree.trunk.removeChild(tree.top);
+	    		MiddleShake.stop();
+	    	}
+	    	else if(tree.lumber === 8){
+	    		tree.removepart(tree.middle, MiddleShake);
+	    		BottomShake.stop();
+	    	}
+	    	else if(tree.lumber === 0){
+	    		tree.removepart(tree.bottom, BottomShake);
+	    		TrunkShake.stop();
+	    		game.stage.removeChild(tree.trunk);
+	    		return;
+	    	}
+	    	console.log(tree.lumber);
+	    	TrunkShake.start();
+	    } )
+	   	//.repeat(Infinity);
 
 	TrunkShake.start();
-	TopShake.start();
 	MiddleShake.start();
 	BottomShake.start();
+
+	this.removepart = function(portion, tween){
+		this.trunk.removeChild(portion);
+		tween.stop();
+	}
 
 	this.handleInput = function(input) {
 
@@ -108,4 +127,5 @@ game.Tree = function(position) {
 	this.update = function(delta) {
 
 	};
+
 };
