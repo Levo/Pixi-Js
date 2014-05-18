@@ -13,6 +13,8 @@ game.PlayScreen = function() {
 
 	this.enter = function() {
 		this.paul = new game.Paul();
+		_.extend(game.Paul.prototype, game.Moving);
+
 		this.tree = new game.Tree({ x: 150, y: 100 });
 
 
