@@ -36,7 +36,7 @@ game.Tree = function(position, lumber) {
 	this.area.anchor.y = 0.0;
 	this.area.position.y = this.trunk.position.y - 40;
 	this.area.position.x = this.trunk.position.x - 72;
-	this.area.alpha  = 0.3;
+	this.area.alpha  = 0.5;
 
 
 	// Anchoring the 3 tree parts
@@ -61,8 +61,8 @@ game.Tree = function(position, lumber) {
 	this.bottom.position.y = 0;
 
 	// Add to stage
-	game.stage.addChildAt(this.area,1);
 	game.stage.addChildAt(this.trunk,1);
+	game.stage.addChildAt(this.area,1);
 	
 	var tree = this;
 
@@ -92,18 +92,22 @@ game.Tree = function(position, lumber) {
 	    	this.x = 0;
 	    	TrunkShake.start();
 	    	tree.removeLumber();
-	    	
 	    } );
 	   	//.repeat(Infinity);
 
 	this.removeLumber = function() {
-    	tree.lumber -= 2;
+		// This just stop from giving lumber if this gets called and it does.
+		// For some reason tree.area gets removed but the bounds are still there so
+		// you can walk back into the chop area and it will call this.chop(); and start up trunkshake.start(); again
+		// the area bounds need to be cleared, i would of thought they would be removed or 0,0 or something when the object gets removed.
+		if(tree.lumber > 0){
+	    	tree.lumber -= 2;
 
-    	// this is hacky
-    	// add lumber to the current screens lumber count
-    	// this assumes the current screen has this property. : (
-    	game.state.currentScreen.lumber += 2;
-
+	    	// this is hacky
+	    	// add lumber to the current screens lumber count
+	    	// this assumes the current screen has this property. : (
+	    	game.state.currentScreen.lumber += 2;
+    	}
     	if(tree.lumber === 16){
     		tree.trunk.removeChild(tree.top);
     		MiddleShake.stop();
@@ -112,12 +116,15 @@ game.Tree = function(position, lumber) {
     		tree.removepart(tree.middle, MiddleShake);
     		BottomShake.stop();
     	}
+    	
     	else if(tree.lumber === 0){
     		tree.removepart(tree.bottom, BottomShake);
-    		TrunkShake.stop();
+    		// This gets called again because of this.chop() gets called and this.chop() gets called because of the area.bounds aren't clearing
+    		game.stage.removeChild(tree.area);
     		game.stage.removeChild(tree.trunk);
+    		TrunkShake.stop();
     		return;
-    	}	
+    	}
 	};
 
 	// State
@@ -149,15 +156,20 @@ game.Tree = function(position, lumber) {
 
 	this.update = function(delta, screen) {
 		var LengthOfLegs = 32;
+
 		var x = screen.paul.core.position.x;
 		var y = screen.paul.core.position.y + LengthOfLegs;
+
 		if (this.area.getBounds().contains(x, y)) {
 			if (!this.chopping) {
 				this.chop();
+				this.area.alpha = 0.5;
 			}
 		}
 		else {
 			this.stopChopping();
+			this.area.alpha = 0.0;
+
 		}
 	};
 
