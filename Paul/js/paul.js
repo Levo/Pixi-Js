@@ -181,7 +181,21 @@ game.Paul = function() {
 
 	this.currentState = new game.WalkingState();
 
+	this.core.setInteractive(true);
+
 	this.stateText.setText(this.currentState.name);
+
+	var paul = this;
+
+	game.stage.mousedown = function(data){
+		console.log("I CLICKED THE STAGE");
+		var coordinates = data.getLocalPosition(this);
+		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x);
+	}
+
+	this.throwaxe = function(posX, posY,scale){
+		var currentaxe = new game.ThrowingAxe({x: posX, y: posY},scale);
+	};
 
 	this.handleInput = function(input) {
 		this.currentState.handleInput(input, this);
