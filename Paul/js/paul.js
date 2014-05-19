@@ -34,29 +34,73 @@ game.WalkingState = function() {
 };
 
 game.WalkingTweens = function(entity){
+
    	this.head = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2.0 }, 720 )
-	    .easing( TWEEN.Easing.Linear.None )
+	    .to( { x: Math.PI * 2.0 }, 850 )
+	    .easing( TWEEN.Easing.Elastic.InOut )
 	    .onUpdate( function () {
 	    	entity.head.y = this.x;
 	    } )
 	    .repeat(Infinity)
 
     this.body = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2.0 }, 650 )
-	    .easing( TWEEN.Easing.Linear.None )
+	    .to( { x: Math.PI * 2.0 }, 800 )
+	    .easing( TWEEN.Easing.Bounce.InOut )
 	    .onUpdate( function () {
 	    	entity.body.y = this.x;
 	    } )
 	    .repeat(Infinity)
 
     this.neck = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2.0 }, 1080 )
-	    .easing( TWEEN.Easing.Linear.None )
+	    .to( { x: Math.PI * 2.0 }, 850 )
+	    .easing( TWEEN.Easing.Circular.InOut )
 	    .onUpdate( function () {
 	    	entity.neck.y = this.x;
 	    } )
 	    .repeat(Infinity)
+
+    this.mustache = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2.0}, 850 )
+	    .easing( TWEEN.Easing.Elastic.InOut )
+	    .onUpdate( function () {
+	    	entity.mustache.y = this.x;
+	    } )
+	    .repeat(Infinity)
+
+    this.leftleg = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI / 24}, 750 )
+	    .easing( TWEEN.Easing.Elastic.InOut )
+	    .onUpdate( function () {
+	    	entity.leftleg.rotation = this.x;
+	    } )
+	    .repeat(Infinity)
+
+    this.rightleg = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: -Math.PI / 24}, 750 )
+	    .easing( TWEEN.Easing.Elastic.InOut )
+	    .onUpdate( function () {
+	    	entity.rightleg.rotation = this.x;
+	    } )
+	    .repeat(Infinity)
+
+
+	this.StartWalking = function(){
+		this.head.start();
+		this.body.start();
+		this.neck.start();
+		this.mustache.start();
+		this.leftleg.start();
+		this.rightleg.start();
+	};
+
+	this.StopWalking = function(){
+		this.head.stop();
+		this.body.stop();
+		this.neck.stop();
+		this.mustache.stop();
+		this.leftleg.stop();
+		this.rightleg.stop();
+	};
 
 };
 
@@ -73,19 +117,19 @@ game.Paul = function() {
 	// Core is the center/anchor of Paul
 	// All the parts will be centered around the core
 	this.core = new PIXI.Sprite(this.coretexture);
+	this.neck = new PIXI.Sprite(this.necktexture);
 	this.body = new PIXI.Sprite(this.bodytexture);
 	this.head = new PIXI.Sprite(this.headtexture);
 	this.rightleg = new PIXI.Sprite(this.rightlegtexture);
 	this.leftleg = new PIXI.Sprite(this.leftlegtexture);
-	this.neck = new PIXI.Sprite(this.necktexture);
 	this.mustache = new PIXI.Sprite(this.mustachetexture);
 
 	// Adding all the parts to the core
-	this.core.addChild(this.body);
-	this.core.addChild(this.neck);
-	this.core.addChild(this.head);
 	this.core.addChild(this.rightleg);
 	this.core.addChild(this.leftleg);
+	this.core.addChild(this.neck);
+	this.core.addChild(this.body);
+	this.core.addChild(this.head);
 	this.core.addChild(this.mustache);
 
 	// Anchoring and positioning of the core
@@ -113,11 +157,11 @@ game.Paul = function() {
 
 	// Right Leg
 	this.rightleg.anchor.x = -0.45;
-	this.rightleg.anchor.y = -1.0;
+	this.rightleg.anchor.y = -1.1;
 
 	// Left Leg
 	this.leftleg.anchor.x = 1.45;
-	this.leftleg.anchor.y = -1;
+	this.leftleg.anchor.y = -1.1;
 
 	// Add to stage
 	game.stage.addChild(this.core);
@@ -131,9 +175,7 @@ game.Paul = function() {
 
 	this.walkingtweens = new game.WalkingTweens(this);
 
-	this.walkingtweens.head.start();
-	this.walkingtweens.body.start();	
-	this.walkingtweens.neck.start();
+	this.walkingtweens.StartWalking();
 
 	this.currentState = new game.WalkingState();
 
