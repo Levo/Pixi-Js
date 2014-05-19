@@ -83,7 +83,7 @@ game.Tree = function(position, lumber) {
 	    } )
 	    .repeat(Infinity);
 
-   	var TrunkShake = new TWEEN.Tween( { x: 0.0 } )
+   	var TrunkShake = new TWEEN.Tween( { x: 0.0 })
 	    .to( { x: Math.PI * 2.0 }, 1080 )
 	    .easing( TWEEN.Easing.Elastic.Out )
 	    .onUpdate( function () {

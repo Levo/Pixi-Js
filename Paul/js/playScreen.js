@@ -29,11 +29,13 @@ game.PlayScreen = function() {
 	this.enter = function() {
 		this.paul = new game.Paul();
 		this.tree = new game.Tree({ x: 150, y: 100 }, 24);
+		this.throwingaxe = new game.ThrowingAxe({x: 250, y:250});
 
 		_.extend(game.Paul.prototype, game.Moving);
 
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
+		this.entities.push(this.throwingaxe);
 	};
 
 	this.exit = function() {

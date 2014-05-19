@@ -9,10 +9,12 @@ game.WalkingState = function() {
 
 		if (game.input.keydown("walkleft")) {
 			entity.force.x = -this.walkingForce;
+			entity.core.scale.x = -1;
 			noInput = false;
 		}
 		else if (game.input.keydown("walkright")) {
 			entity.force.x = this.walkingForce;
+			entity.core.scale.x = 1;
 		}
 
 		if (game.input.keydown("walkup")) {
