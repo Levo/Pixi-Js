@@ -21,6 +21,9 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	// The direction of spin
 	this.spindirection = spindirection;
 
+	// speed of rotation
+	this.rotationspeed = Math.PI/8;
+
 	// Calculates the angle from the core of paul to the mouse position
 	this.angle = Math.atan2(mouseY - this.sprite.position.y, mouseX - this.sprite.position.x);
 
@@ -33,12 +36,12 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 		this.sprite.position.y += Math.sin(this.angle) * this.speed;
 
 		// This rotates the axe in radians
-		this.sprite.rotation += (Math.PI/6) * this.spindirection;
+		this.sprite.rotation += (this.rotationspeed) * this.spindirection;
 	};
 
 	this.checkbounds = function(){
 		if(this.sprite.position.x > game.renderer.width || this.sprite.position.x < 0 || this.sprite.position.y > game.renderer.height || this.sprite.position.y < 0){
-			
+
 		}
 	};
 
