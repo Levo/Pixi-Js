@@ -1,5 +1,14 @@
 game.PlayScreen = function() {
+
+	var self = this;
+	var lumberText = function() {
+		return 'Lumber - ' + self.lumber;
+	};
+
 	this.entities = [];
+	this.lumber = 0;
+
+	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, game.renderer.height - 24.0);
 
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
@@ -9,6 +18,8 @@ game.PlayScreen = function() {
 		for (var i = 0; i < this.entities.length; i++) {
 			this.entities[i].update(delta);
 		}
+
+		this.lumberGUI.setText(lumberText());
 	};
 
 	this.enter = function() {
@@ -19,8 +30,6 @@ game.PlayScreen = function() {
 
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
-
-	
 	};
 
 	this.exit = function() {
