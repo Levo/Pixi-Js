@@ -22,8 +22,15 @@ var game = game || {};
 		fill: "white"
 	};
 	game.input = null;
+	game.stats = null;
 
 	game.init = function() {
+
+		game.stats = new Stats();
+		document.body.appendChild(game.stats.domElement);
+		game.stats.domElement.style.position = "absolute";
+		game.stats.domElement.style.top = "0px";
+
 		// create an new instance of a pixi stage
 		game.stage = new PIXI.Stage(green);
 
@@ -62,6 +69,8 @@ var game = game || {};
 	var last = Date.now();
 
 	game.update = function() {
+		game.stats.begin();
+
 		requestAnimFrame(game.update);
 
 		// Calculate time delta
@@ -83,6 +92,8 @@ var game = game || {};
 
 		// clear
 		game.input.clear();
+
+		game.stats.end();
 	};
 
 
