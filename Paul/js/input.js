@@ -20,12 +20,16 @@ var Input = (function() {
 
 	Input.prototype.pressed = function(keystring) {
 		var keyCode = this.keymap[keystring];
-		return keysdown[keyCode];
+		return keysup[keyCode];
 	};
 
 	Input.prototype.keydown = function(keystring) {
 		var keyCode = this.keymap[keystring];
 		return keysdown[keyCode];
+	};
+
+	Input.prototype.clear = function() {
+		keysup = {};
 	};
 
 	return Input;
