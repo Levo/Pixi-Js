@@ -8,7 +8,7 @@ game.PlayScreen = function() {
 	this.entities = [];
 	this.lumber = 0;
 
-	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, game.renderer.height - 24.0);
+	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, 0.0);
 
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
