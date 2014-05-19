@@ -12,11 +12,15 @@ game.PlayScreen = function() {
 
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
+
+		if (input.pressed('chop')) {
+			this.tree.chop();
+		}
 	};
 
 	this.update = function(delta) {
 		for (var i = 0; i < this.entities.length; i++) {
-			this.entities[i].update(delta);
+			this.entities[i].update(delta, this);
 		}
 
 		this.lumberGUI.setText(lumberText());

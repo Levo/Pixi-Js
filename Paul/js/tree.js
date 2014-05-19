@@ -108,24 +108,49 @@ game.Tree = function(position, lumber) {
 	    	}
 	    	console.log(tree.lumber);
 	    	TrunkShake.start();
-	    } )
+	    } );
 	   	//.repeat(Infinity);
 
-	TrunkShake.start();
-	MiddleShake.start();
-	BottomShake.start();
+	// State
+	this.chopping = false;
+
+	this.chop = function() {
+		TrunkShake.start();
+		MiddleShake.start();
+		BottomShake.start();
+
+		this.chopping = true;
+	};
+
+	this.stopChopping = function() {
+		TrunkShake.stop();
+		MiddleShake.stop();
+		BottomShake.stop();
+
+		this.chopping = false;
+	};
 
 	this.removepart = function(portion, tween){
 		this.trunk.removeChild(portion);
 		tween.stop();
-	}
+	};
 
 	this.handleInput = function(input) {
 
 	};
 
-	this.update = function(delta) {
+	this.update = function(delta, screen) {
+		var x = screen.paul.core.position.x;
+		var y = screen.paul.core.position.y;
 
+		if (this.area.getBounds().contains(x, y)) {
+			if (!this.chopping) {
+				this.chop();
+			}
+		}
+		else {
+			this.stopChopping();
+		}
 	};
 
 };

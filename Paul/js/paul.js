@@ -143,7 +143,7 @@ game.Paul = function() {
 		this.currentState.handleInput(input, this);
 	};
 
-	this.update = function(delta) {
+	this.update = function(delta, screen) {
 		this.currentState.update(delta, this);
 		this.updateSteering(delta);
 	};
