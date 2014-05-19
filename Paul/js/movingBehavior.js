@@ -45,8 +45,11 @@ var game = game || {};
 			// update position.
 			// assume this has a position on the sprite
 			// object. this sort of blows.
-			this.sprite.position.x += this.velocity.x * delta;
-			this.sprite.position.y += this.velocity.y * delta;
+
+			// It was this.sprite but since I renamed that inside paul.js to body.
+			// So its now this.body
+			this.body.position.x += this.velocity.x * delta;
+			this.body.position.y += this.velocity.y * delta;
 		}
 	};
 })();
