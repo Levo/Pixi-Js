@@ -72,7 +72,7 @@ game.Paul = function() {
 
 	// Core is the center/anchor of Paul
 	// All the parts will be centered around the core
-	this.core = new PIXI.Sprite(this.maintexture);
+	this.core = new PIXI.Sprite(this.coretexture);
 	this.body = new PIXI.Sprite(this.bodytexture);
 	this.head = new PIXI.Sprite(this.headtexture);
 	this.rightleg = new PIXI.Sprite(this.rightlegtexture);
