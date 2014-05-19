@@ -43,7 +43,7 @@ var game = game || {};
 		// action -> keycode mapping
 		game.input = new Input({
 			'start' 	: 13,		// enter
-			'chop' 		: 67,		// space
+			'chop' 		: 67,		// c
 			'walkleft' 	: 65,		// a 
 			'walkright' : 68,		// d
 			'walkup'	: 87,		// w
