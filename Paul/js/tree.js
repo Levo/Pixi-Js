@@ -90,8 +90,9 @@ game.Tree = function(position, lumber) {
 	    } )
 	    .onComplete( function() {
 	    	this.x = 0;
-	    	tree.removeLumber();
 	    	TrunkShake.start();
+	    	tree.removeLumber();
+	    	
 	    } );
 	   	//.repeat(Infinity);
 
