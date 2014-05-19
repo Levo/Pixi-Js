@@ -65,7 +65,6 @@ game.Tree = function(position, lumber) {
 	game.stage.addChildAt(this.trunk,1);
 	
 	var tree = this;
-	console.log(this.lumber);
 
     var MiddleShake = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 650 )
@@ -91,25 +90,34 @@ game.Tree = function(position, lumber) {
 	    } )
 	    .onComplete( function() {
 	    	this.x = 0;
-	    	tree.lumber -= 2;
-	    	if(tree.lumber === 16){
-	    		tree.trunk.removeChild(tree.top);
-	    		MiddleShake.stop();
-	    	}
-	    	else if(tree.lumber === 8){
-	    		tree.removepart(tree.middle, MiddleShake);
-	    		BottomShake.stop();
-	    	}
-	    	else if(tree.lumber === 0){
-	    		tree.removepart(tree.bottom, BottomShake);
-	    		TrunkShake.stop();
-	    		game.stage.removeChild(tree.trunk);
-	    		return;
-	    	}
-	    	console.log(tree.lumber);
+	    	tree.removeLumber();
 	    	TrunkShake.start();
 	    } );
 	   	//.repeat(Infinity);
+
+	this.removeLumber = function() {
+    	tree.lumber -= 2;
+
+    	// this is hacky
+    	// add lumber to the current screens lumber count
+    	// this assumes the current screen has this property. : (
+    	game.state.currentScreen.lumber += 2;
+
+    	if(tree.lumber === 16){
+    		tree.trunk.removeChild(tree.top);
+    		MiddleShake.stop();
+    	}
+    	else if(tree.lumber === 8){
+    		tree.removepart(tree.middle, MiddleShake);
+    		BottomShake.stop();
+    	}
+    	else if(tree.lumber === 0){
+    		tree.removepart(tree.bottom, BottomShake);
+    		TrunkShake.stop();
+    		game.stage.removeChild(tree.trunk);
+    		return;
+    	}	
+	};
 
 	// State
 	this.chopping = false;
