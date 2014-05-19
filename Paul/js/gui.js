@@ -16,13 +16,13 @@ game.TextWidget = function(text, x, y) {
 	this.x = x;
 	this.y = y;
 
-	this.image = new PIXI.Text(text, game.font);
-	this.image.position.x = x;
-	this.image.position.y = y;
+	this.sprite = new PIXI.Text(text, game.font);
+	this.sprite.position.x = x;
+	this.sprite.position.y = y;
 
-	game.stage.addChild(this.image);
+	game.stage.addChild(this.sprite);
 
 	this.setText = function(text) {
-		this.image.setText(text);
+		this.sprite.setText(text);
 	};
 }
