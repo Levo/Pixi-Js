@@ -181,20 +181,26 @@ game.Paul = function() {
 
 	this.currentState = new game.WalkingState();
 
-	this.core.setInteractive(true);
-
 	this.stateText.setText(this.currentState.name);
 
 	var paul = this;
 
+	// this event will trigger when the mouse is pressed
 	game.stage.mousedown = function(data){
-		console.log("I CLICKED THE STAGE");
+		// Gets the mouse coordinates relative to the game stage
 		var coordinates = data.getLocalPosition(this);
-		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x);
+
+		// Calls throwaxe function
+		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y);
 	}
 
-	this.throwaxe = function(posX, posY,scale){
-		var currentaxe = new game.ThrowingAxe({x: posX, y: posY},scale);
+	this.throwaxe = function(posX, posY,scale, mouseX, mouseY){
+		// This takes the position of paul's core, scale(the direction he's facing), and the mouse coordinates
+		// Creates the axe
+		var currentaxe = new game.ThrowingAxe({x: posX, y: posY}, scale, mouseX, mouseY);
+
+		// Adds the axe to the entities in the currentScreen to be updated
+		game.state.currentScreen.entities.push(currentaxe);
 	};
 
 	this.handleInput = function(input) {
