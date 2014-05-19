@@ -78,11 +78,11 @@ game.Paul = function() {
 	this.mustache.anchor.y = 4.0;
 
 	// Right Leg
-	this.rightleg.anchor.x = -0.5;
+	this.rightleg.anchor.x = -0.45;
 	this.rightleg.anchor.y = -1;
 
 	// Left Leg
-	this.leftleg.anchor.x = 1.5;
+	this.leftleg.anchor.x = 1.45;
 	this.leftleg.anchor.y = -1;
 
 	// Add to stage
