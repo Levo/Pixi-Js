@@ -90,6 +90,7 @@ game.Tree = function(position, lumber) {
 	    } )
 	    .onComplete( function() {
 	    	this.x = 0;
+	    	//console.log(tree.area.getBounds());
 	    	TrunkShake.start();
 	    	tree.removeLumber();
 	    } );
