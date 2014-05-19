@@ -32,10 +32,10 @@ game.Tree = function(position, lumber) {
 	this.trunk.position.x = position.x;
 	this.trunk.position.y = position.y;
 
-	this.area.anchor.x = 0.5;
-	this.area.anchor.y = 0.5;
-	this.area.position.y = this.trunk.position.y + 15;
-	this.area.position.x = this.trunk.position.x;
+	this.area.anchor.x = 0.0;
+	this.area.anchor.y = 0.0;
+	this.area.position.y = this.trunk.position.y - 40;
+	this.area.position.x = this.trunk.position.x - 72;
 	this.area.alpha  = 0.3;
 
 
@@ -61,8 +61,8 @@ game.Tree = function(position, lumber) {
 	this.bottom.position.y = 0;
 
 	// Add to stage
-	game.stage.addChild(this.area);
-	game.stage.addChild(this.trunk);
+	game.stage.addChildAt(this.area,1);
+	game.stage.addChildAt(this.trunk,1);
 	
 	var tree = this;
 	console.log(this.lumber);
@@ -113,7 +113,6 @@ game.Tree = function(position, lumber) {
 
 	// State
 	this.chopping = false;
-
 	this.chop = function() {
 		TrunkShake.start();
 		MiddleShake.start();
@@ -140,9 +139,9 @@ game.Tree = function(position, lumber) {
 	};
 
 	this.update = function(delta, screen) {
+		var LengthOfLegs = 32;
 		var x = screen.paul.core.position.x;
-		var y = screen.paul.core.position.y;
-
+		var y = screen.paul.core.position.y + LengthOfLegs;
 		if (this.area.getBounds().contains(x, y)) {
 			if (!this.chopping) {
 				this.chop();
