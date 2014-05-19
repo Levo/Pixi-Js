@@ -190,14 +190,36 @@ game.Paul = function() {
 		// Gets the mouse coordinates relative to the game stage
 		var coordinates = data.getLocalPosition(this);
 
+		// Gets the direction the axe should spin
+		var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
+
 		// Calls throwaxe function
-		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y);
+		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
 	}
 
-	this.throwaxe = function(posX, posY,scale, mouseX, mouseY){
-		// This takes the position of paul's core, scale(the direction he's facing), and the mouse coordinates
+	// This function checks which side the mouse is on relative to the core and checks what way paul is facing
+	// Depending on what way he is facing and what side the mouse is on it will give the correct direction of spin
+	this.getspindirection = function(mouseX, posX, scale){
+		if(mouseX > posX && scale === -1){
+			return 1;
+		}
+		else if(mouseX < posX && scale === 1)
+		{
+			return -1;
+		}
+		else if(mouseX > posX && scale === 1){
+			return 1;
+		}
+		else if(mouseX < posX && scale === -1)
+		{
+			return -1;
+		}
+	}
+
+	this.throwaxe = function(posX, posY,scale, mouseX, mouseY, spindirection){
+		// This takes the position of paul's core, scale(the direction he's facing), and the mouse coordinates, spin direction
 		// Creates the axe
-		var currentaxe = new game.ThrowingAxe({x: posX, y: posY}, scale, mouseX, mouseY);
+		var currentaxe = new game.ThrowingAxe({x: posX, y: posY}, scale, mouseX, mouseY, spindirection);
 
 		// Adds the axe to the entities in the currentScreen to be updated
 		game.state.currentScreen.entities.push(currentaxe);
