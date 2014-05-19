@@ -33,8 +33,36 @@ game.WalkingState = function() {
 	};
 };
 
+game.WalkingTweens = function(entity){
+   	this.head = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2.0 }, 720 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	entity.head.y = this.x;
+	    } )
+	    .repeat(Infinity)
+
+    this.body = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2.0 }, 650 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	entity.body.y = this.x;
+	    } )
+	    .repeat(Infinity)
+
+    this.neck = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2.0 }, 1080 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	entity.neck.y = this.x;
+	    } )
+	    .repeat(Infinity)
+
+};
+
 game.Paul = function() {
 	// Loading all the textures for each body part
+	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
 	this.bodytexture = PIXI.Texture.fromImage("sprites/body.png");
 	this.headtexture = PIXI.Texture.fromImage("sprites/head.png");
 	this.leftlegtexture = PIXI.Texture.fromImage("sprites/leg.png");
@@ -42,8 +70,9 @@ game.Paul = function() {
 	this.necktexture = PIXI.Texture.fromImage("sprites/neck.png");
 	this.mustachetexture = PIXI.Texture.fromImage("sprites/mustache.png");
 
-	// The body is the main ANCHOR of paul
-	// All the parts will be centered around the body
+	// Core is the center/anchor of Paul
+	// All the parts will be centered around the core
+	this.core = new PIXI.Sprite(this.maintexture);
 	this.body = new PIXI.Sprite(this.bodytexture);
 	this.head = new PIXI.Sprite(this.headtexture);
 	this.rightleg = new PIXI.Sprite(this.rightlegtexture);
@@ -51,20 +80,21 @@ game.Paul = function() {
 	this.neck = new PIXI.Sprite(this.necktexture);
 	this.mustache = new PIXI.Sprite(this.mustachetexture);
 
-	// Adding all the parts to the body
-	this.body.addChild(this.neck);
-	this.body.addChild(this.head);
-	this.body.addChild(this.rightleg);
-	this.body.addChild(this.leftleg);
-	this.body.addChild(this.mustache);
+	// Adding all the parts to the core
+	this.core.addChild(this.body);
+	this.core.addChild(this.neck);
+	this.core.addChild(this.head);
+	this.core.addChild(this.rightleg);
+	this.core.addChild(this.leftleg);
+	this.core.addChild(this.mustache);
 
-	// Anchoring and position of the body
-	this.body.anchor.x = 0.5;
-	this.body.anchor.y = 0.5;
-	this.body.position.x = game.renderer.width / 2.0;
-	this.body.position.y = game.renderer.height / 2.0;
+	// Anchoring and positioning of the core
+	this.core.anchor.x = 0.5;
+	this.core.anchor.y = 0.5;
+	this.core.position.x = game.renderer.width / 2.0;
+	this.core.position.y = game.renderer.height / 2.0;
 
-	// Anchoring and positioning of the parts relative to the body
+	// Anchoring and positioning of the parts relative to the core
 	// Head
 	this.head.anchor.x = 0.5;
 	this.head.anchor.y = 2.0;
@@ -73,20 +103,24 @@ game.Paul = function() {
 	this.neck.anchor.x = 0.5;
 	this.neck.anchor.y = 2.65;
 
+	// Body
+	this.body.anchor.x = 0.5;
+	this.body.anchor.y = 0.5;
+
 	// Mustache
 	this.mustache.anchor.x = 0.35;
 	this.mustache.anchor.y = 4.0;
 
 	// Right Leg
 	this.rightleg.anchor.x = -0.45;
-	this.rightleg.anchor.y = -1;
+	this.rightleg.anchor.y = -1.0;
 
 	// Left Leg
 	this.leftleg.anchor.x = 1.45;
 	this.leftleg.anchor.y = -1;
 
 	// Add to stage
-	game.stage.addChild(this.body);
+	game.stage.addChild(this.core);
 
 	this.stateText = new PIXI.Text("", game.font);
 	this.stateText.anchor.x = 0.5;
@@ -94,6 +128,12 @@ game.Paul = function() {
 	this.stateText.position.x = game.renderer.width / 2.0;
 	this.stateText.position.y = game.renderer.height - this.stateText.height;
 	game.stage.addChild(this.stateText);
+
+	this.walkingtweens = new game.WalkingTweens(this);
+
+	this.walkingtweens.head.start();
+	this.walkingtweens.body.start();	
+	this.walkingtweens.neck.start();
 
 	this.currentState = new game.WalkingState();
 
