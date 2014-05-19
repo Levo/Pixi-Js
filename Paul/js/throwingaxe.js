@@ -32,9 +32,19 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 		this.sprite.position.x += Math.cos(this.angle) * this.speed;
 		this.sprite.position.y += Math.sin(this.angle) * this.speed;
 
-		// This rotates the axe
+		// This rotates the axe in radians
 		this.sprite.rotation += (Math.PI/6) * this.spindirection;
-	}
+	};
+
+	this.checkbounds = function(){
+		if(this.sprite.position.x > game.renderer.width || this.sprite.position.x < 0 || this.sprite.position.y > game.renderer.height || this.sprite.position.y < 0){
+			
+		}
+	};
+
+	this.destory = function(){
+		game.stage.removeChild(this.sprite);
+	};
 
 	this.handleInput = function(input) {
 
@@ -43,5 +53,8 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	this.update = function(delta) {
 		// Movement of the axe
 		this.path();
+
+		// Checking Bounds for deleting the object
+		this.checkbounds();
 	};
 };
