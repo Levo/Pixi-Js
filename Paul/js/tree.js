@@ -3,11 +3,15 @@ var game = game || {};
 game.Tree = function(position, lumber) {
 	this.lumber = lumber;
 
+	// Loud sounds.
+	var treeChop = new Audio("sounds/treechop.wav"); // buffers automatically when created
+
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
 	this.textureTop = PIXI.Texture.fromImage("sprites/top.png");
 	this.textureAreaSkew = PIXI.Texture.fromImage("sprites/areaskew.png");
+	this.lumberTexture = PIXI.Texture.fromImage("sprites/lumber.png");
 
 	// Trunk
 	this.trunk = new PIXI.Sprite(this.texture);
@@ -95,6 +99,28 @@ game.Tree = function(position, lumber) {
 	    } );
 	   	//.repeat(Infinity);
 
+	// Spawns a lumber sprite and makes a tween to make it go
+	// from (x, y) to (x1, y1) over t milliseconds.
+	this.makeLumberSprite = function(start, end, t) {
+		var sprite = new PIXI.Sprite(this.lumberTexture);
+		sprite.position.x = start.x;
+		sprite.position.y = start.y;
+
+		game.stage.addChild(sprite);
+
+		var tween = new TWEEN.Tween({ x: sprite.position.x, y: sprite.position.y })
+							 .to({ x: end.x, y: end.y }, t)
+							 .easing(TWEEN.Easing.Linear.None)
+							 .onUpdate(function() {
+							 	sprite.position.x = this.x;
+							 	sprite.position.y = this.y;
+							 })
+							 .onComplete(function() {
+							 	game.stage.removeChild(sprite);
+							 })
+							 .start();
+	};
+
 	this.removeLumber = function() {
     	tree.lumber -= 2;
 
@@ -102,6 +128,11 @@ game.Tree = function(position, lumber) {
     	// add lumber to the current screens lumber count
     	// this assumes the current screen has this property. : (
     	game.state.currentScreen.lumber += 2;
+
+    	//treeChop.play();
+    	//treeChop.currentTime = 0;
+
+    	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 1000);
 
     	if(tree.lumber === 16){
     		tree.trunk.removeChild(tree.top);

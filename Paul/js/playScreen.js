@@ -10,10 +10,15 @@ game.PlayScreen = function() {
 
 	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, 0.0);
 
+	this.getLumberGUIPosition = function() {
+		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
+	};
+
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
 
 		if (input.pressed('chop')) {
+    		this.tree.makeLumberSprite({ x: this.tree.area.position.x, y: this.tree.area.position.y}, this.getLumberGUIPosition(), 1000);
 			this.tree.chop();
 		}
 	};
