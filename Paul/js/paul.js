@@ -187,9 +187,13 @@ game.Paul = function() {
 	this.stateText.setText(this.currentState.name);
 
 	this.axe = new game.Axe({x: this.core.position.x, y: this.core.position.y});
+	this.axe.sprite.anchor.x = 0.5;
+	this.axe.sprite.anchor.y = 1.0;
 	game.state.currentScreen.entities.push(this.axe);
 
 	this.isattacking = false;
+	this.direction = 0;
+	this.angle = 0;
 
 	var paul = this;
 
@@ -197,7 +201,7 @@ game.Paul = function() {
 	game.stage.mousedown = function(data){
 		// Gets the mouse coordinates relative to the game stage
 		var coordinates = data.getLocalPosition(this);
-		
+
 		if(!paul.isattacking){
 			paul.swingaxe(paul);
 		}
@@ -241,13 +245,14 @@ game.Paul = function() {
 	};
 
 	this.swingaxe = function(entity){
+		var direction = this.getswingdirection();
 		var axeswing = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2.0 }, 800 )
+	    .to( { x: -direction*Math.PI * 2.0 }, 800 )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
-	    	entity.axe.sprite.position.x = (Math.cos(this.x)*25) + entity.axe.sprite.position.x;
-	    	entity.axe.sprite.position.y = (Math.sin(this.x)*25) + entity.axe.sprite.position.y;
-	    	entity.axe.sprite.rotation = -this.x/6;
+	    	entity.axe.sprite.position.x = direction*(Math.cos(this.x)*25) + entity.axe.sprite.position.x;
+	    	entity.axe.sprite.position.y = direction*(Math.sin(this.x)*25) + entity.axe.sprite.position.y;
+	    	entity.axe.sprite.rotation = this.x/6;
 	    } )
 		.onComplete(function() {
 		 	entity.axe.sprite.rotation = 0;
@@ -259,11 +264,11 @@ game.Paul = function() {
 	};
 
 	this.positionaxe = function(){
-		var direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
-		var angle = Math.atan2(this.mouseY - this.core.position.y, this.mouseX - this.core.position.x);
-		this.axe.sprite.scale.x = direction;
-		this.axe.sprite.position.x = (Math.cos(angle)*25) + this.core.position.x;
-		this.axe.sprite.position.y = (Math.sin(angle)*25) + this.core.position.y;
+		this.direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
+		this.angle = Math.atan2(this.mouseY - this.core.position.y, this.mouseX - this.core.position.x);
+		this.axe.sprite.scale.x = this.direction;
+		this.axe.sprite.position.x = (Math.cos(this.angle)*25) + this.core.position.x;
+		this.axe.sprite.position.y = (Math.sin(this.angle)*25) + this.core.position.y;
 	};
 
 	this.handleInput = function(input) {
