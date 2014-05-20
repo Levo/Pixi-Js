@@ -3,9 +3,6 @@ var game = game || {};
 game.Tree = function(position, lumber) {
 	this.lumber = lumber;
 
-	// Loud sounds.
-	var treeChop = new Audio("sounds/treechop.wav"); // buffers automatically when created
-
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
 	this.textureMiddle = PIXI.Texture.fromImage("sprites/middle.png");
@@ -123,8 +120,8 @@ game.Tree = function(position, lumber) {
 	};
 
 	this.removeLumber = function() {
-    	//treeChop.play();
-    	//treeChop.currentTime = 0;
+    	var treeChop = new Audio("sounds/treechop.wav");
+    	treeChop.play();
 
     	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 1000);
 
