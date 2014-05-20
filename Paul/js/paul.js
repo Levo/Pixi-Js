@@ -189,6 +189,8 @@ game.Paul = function() {
 	this.axe = new game.Axe({x: this.core.position.x, y: this.core.position.y});
 	game.state.currentScreen.entities.push(this.axe);
 
+	this.isattacking = false;
+
 	var paul = this;
 
 	// this event will trigger when the mouse is pressed
@@ -201,9 +203,12 @@ game.Paul = function() {
 
 		// Calls throwaxe function
 		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
-	
-		paul.swingaxe();
 
+		if(!paul.isattacking){
+			paul.swingaxe(paul);
+		}
+
+		paul.isattacking = true;
 	}
 
 	game.stage.mousemove = function(data){
@@ -241,8 +246,22 @@ game.Paul = function() {
 		game.state.currentScreen.entities.push(currentaxe);
 	};
 
-	this.swingaxe = function(){
-		this.axe.sprite.rotation += 0;
+	this.swingaxe = function(entity){
+		var axeswing = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2.0 }, 800 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	entity.axe.sprite.position.x = (Math.cos(this.x)*25) + entity.axe.sprite.position.x;
+	    	entity.axe.sprite.position.y = (Math.sin(this.x)*25) + entity.axe.sprite.position.y;
+	    	entity.axe.sprite.rotation = -this.x/6;
+	    } )
+		.onComplete(function() {
+		 	entity.axe.sprite.rotation = 0;
+		 	entity.isattacking = false;
+		})
+
+	    axeswing.start();
+	    //.repeat(Infinity)
 	};
 
 	this.positionaxe = function(){
