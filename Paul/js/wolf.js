@@ -166,6 +166,6 @@ game.Wolf = function(position) {
 	};
 
 	this.update = function(delta) {
-		
+
 	};
 };
