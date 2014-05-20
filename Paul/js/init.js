@@ -49,6 +49,7 @@ var game = game || {};
 			'walkup'	: 87,		// w
 			'walkdown'	: 83,		// s
 			'shake'		: 66,
+			'throwaxe'	: 32,		// space
 		});
 
 		game.trigger(game.PlayScreen);

@@ -197,13 +197,7 @@ game.Paul = function() {
 	game.stage.mousedown = function(data){
 		// Gets the mouse coordinates relative to the game stage
 		var coordinates = data.getLocalPosition(this);
-
-		// Gets the direction the axe should spin
-		var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
-
-		// Calls throwaxe function
-		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
-
+		
 		if(!paul.isattacking){
 			paul.swingaxe(paul);
 		}
@@ -274,6 +268,13 @@ game.Paul = function() {
 
 	this.handleInput = function(input) {
 		this.currentState.handleInput(input, this);
+		if (input.pressed('throwaxe')) {
+			// Gets the direction the axe should spin
+			var spindirection = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
+
+			// Calls throwaxe function
+			this.throwaxe(this.core.position.x, this.core.position.y, this.core.scale.x,this.mouseX,this.mouseY, spindirection);
+		}
 	};
 
 	this.update = function(delta, screen) {
