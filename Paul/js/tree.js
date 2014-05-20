@@ -152,6 +152,8 @@ game.Tree = function(position, lumber) {
     		// This gets called again because of this.chop() gets called and this.chop() gets called because of the area.bounds aren't clearing
     		game.stage.removeChild(tree.area);
     		game.stage.removeChild(tree.trunk);
+    		var i = game.state.currentScreen.entities.indexOf(tree);
+    		game.state.currentScreen.entities.splice(i, 1);
     		TrunkShake.stop();
     		return;
     	}
@@ -160,11 +162,15 @@ game.Tree = function(position, lumber) {
 	// State
 	this.chopping = false;
 	this.chop = function() {
+
+		console.log("chopping started")
+
 		TrunkShake.start();
 		MiddleShake.start();
 		BottomShake.start();
 
 		this.chopping = true;
+	
 	};
 
 	this.stopChopping = function() {
@@ -187,6 +193,8 @@ game.Tree = function(position, lumber) {
 	this.update = function(delta, screen) {
 
 		var p = screen.paul.position();
+
+		console.log(" WHAT IS INDEX? FOR 400")
 
 		if (this.area.getBounds().contains(p.x, p.y)) {
 			if (!this.chopping) {
