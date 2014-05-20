@@ -107,6 +107,9 @@ game.WalkingTweens = function(entity){
 };
 
 game.Paul = function() {
+	this.mouseX = 0;
+	this.mouseY = 0;
+
 	// Loading all the textures for each body part
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
 	this.bodytexture = PIXI.Texture.fromImage("sprites/body.png");
@@ -183,12 +186,73 @@ game.Paul = function() {
 
 	this.stateText.setText(this.currentState.name);
 
+	this.axe = new game.Axe({x: this.core.position.x, y: this.core.position.y});
+	game.state.currentScreen.entities.push(this.axe);
+
+	var paul = this;
+
+	// this event will trigger when the mouse is pressed
+	game.stage.mousedown = function(data){
+		// Gets the mouse coordinates relative to the game stage
+		var coordinates = data.getLocalPosition(this);
+
+		// Gets the direction the axe should spin
+		var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
+
+		// Calls throwaxe function
+		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
+	}
+
+	game.stage.mousemove = function(data){
+		// Gets the mouse coordinates relative to the game stage
+		var coordinates = data.getLocalPosition(this);
+		paul.mouseX = coordinates.x;
+		paul.mouseY = coordinates.y;
+	}
+
+	// This function checks which side the mouse is on relative to the core and checks what way paul is facing
+	// Depending on what way he is facing and what side the mouse is on it will give the correct direction of spin
+	this.getspindirection = function(mouseX, posX, scale){
+		if(mouseX > posX && scale === -1){
+			return 1;
+		}
+		else if(mouseX < posX && scale === 1)
+		{
+			return -1;
+		}
+		else if(mouseX > posX && scale === 1){
+			return 1;
+		}
+		else if(mouseX < posX && scale === -1)
+		{
+			return -1;
+		}
+	}
+
+	this.throwaxe = function(posX, posY,scale, mouseX, mouseY, spindirection){
+		// This takes the position of paul's core, scale(the direction he's facing), and the mouse coordinates, spin direction
+		// Creates the axe
+		var currentaxe = new game.ThrowingAxe({x: posX, y: posY}, scale, mouseX, mouseY, spindirection);
+
+		// Adds the axe to the entities in the currentScreen to be updated
+		game.state.currentScreen.entities.push(currentaxe);
+	};
+
+	this.positionaxe = function(){
+		var direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
+		var angle = Math.atan2(this.mouseY - this.core.position.y, this.mouseX - this.core.position.x);
+		this.axe.sprite.scale.x = direction;
+		this.axe.sprite.position.x = (Math.cos(angle)*25) + this.core.position.x;
+		this.axe.sprite.position.y = (Math.sin(angle)*25) + this.core.position.y;
+	};
+
 	this.handleInput = function(input) {
 		this.currentState.handleInput(input, this);
 	};
 
 	this.update = function(delta, screen) {
 		this.currentState.update(delta, this);
+		this.positionaxe();
 		this.updateSteering(delta);
 	};
 };

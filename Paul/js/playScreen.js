@@ -27,20 +27,21 @@ game.PlayScreen = function() {
 		for (var i = 0; i < this.entities.length; i++) {
 			this.entities[i].update(delta, this);
 		}
-
 		this.lumberGUI.setText(lumberText());
 	};
 
 	this.enter = function() {
 		this.paul = new game.Paul();
 		this.tree = new game.Tree({ x: 150, y: 100 }, 24);
-		this.throwingaxe = new game.ThrowingAxe({x: 250, y:250});
+		this.wolf = new game.Wolf({ x: 250, y: 250});
+		this.lumbermill = new game.LumberMill({x: 150, y:550});
 
 		_.extend(game.Paul.prototype, game.Moving);
 
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
-		this.entities.push(this.throwingaxe);
+		this.entities.push(this.wolf);
+		this.entities.push(this.lumbermill);
 	};
 
 	this.exit = function() {

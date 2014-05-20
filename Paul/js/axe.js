@@ -1,6 +1,6 @@
 var game = game || {};
 
-game.ThrowingAxe = function(position) {
+game.Axe = function(position) {
 	this.texture = PIXI.Texture.fromImage("sprites/throwingaxe.png");
 	this.sprite = new PIXI.Sprite(this.texture);
 	this.sprite.anchor.x = 0.5;
@@ -10,6 +10,10 @@ game.ThrowingAxe = function(position) {
 
 	// Add to stage
 	game.stage.addChild(this.sprite);
+
+	this.destory = function(){
+		game.stage.removeChild(this.sprite);
+	};
 
 	this.handleInput = function(input) {
 
