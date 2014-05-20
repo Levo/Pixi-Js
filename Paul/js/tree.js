@@ -2,6 +2,7 @@ var game = game || {};
 
 game.Tree = function(position, lumber) {
 	this.lumber = lumber;
+	this.initialY = position.y;
 
 	this.texture = PIXI.Texture.fromImage("sprites/trunk.png");
 	this.textureBottom = PIXI.Texture.fromImage("sprites/bottom.png");
@@ -87,7 +88,7 @@ game.Tree = function(position, lumber) {
 	    .to( { x: Math.PI * 2.0 }, 1080 )
 	    .easing( TWEEN.Easing.Elastic.Out )
 	    .onUpdate( function () {
-	        tree.trunk.position.y = this.x + 100;
+	        tree.trunk.position.y = this.x + tree.initialY;
 	    } )
 	    .onComplete( function() {
 	    	this.x = 0;
