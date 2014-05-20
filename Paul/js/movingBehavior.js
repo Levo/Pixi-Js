@@ -22,11 +22,13 @@ var game = game || {};
 	};
 
 	game.Moving = {
-		force: { x: 0.0, y: 0.0 },
-		velocity: { x: 0.0, y: 0.0 },
-		heading: { x: 0.0, y: 0.0 },
-		mass: 1.0,
-		maxSpeed: 200.0,
+		initMoving: function() {
+			this.force = { x: 0.0, y: 0.0 };
+			this.velocity = { x: 0.0, y: 0.0 };
+			this.heading = { x: 0.0, y: 0.0 };
+			this.mass = 1.0;
+			this.maxSpeed = 200.0;
+		},
 		updateSteering: function(delta, entity) {
 			var SteeringForce = this.force;
 

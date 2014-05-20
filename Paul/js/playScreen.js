@@ -36,7 +36,13 @@ game.PlayScreen = function() {
 		this.wolf = new game.Wolf({ x: 250, y: 250});
 		this.lumbermill = new game.LumberMill({x: 150, y:550});
 
-		_.extend(game.Paul.prototype, game.Moving);
+		// Extend paul and wolf with the moving behavior functions
+		_.extend(this.paul, game.Moving);
+		_.extend(this.wolf, game.Moving);
+
+		// Call init moving to set up properties that the moving behavior requires
+		this.paul.initMoving();
+		this.wolf.initMoving();
 
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
