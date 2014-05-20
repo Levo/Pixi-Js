@@ -114,6 +114,9 @@ game.Paul = function() {
 	this.angle = 0;
 	this.canstop = 1;
 
+	// The tween rate in seconds for attacking:  1000 would be 1 second until he can attack again
+	this.attackrate = 800;
+
 	// Loading all the textures for each body part
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
 	this.bodytexture = PIXI.Texture.fromImage("sprites/body.png");
@@ -257,7 +260,7 @@ game.Paul = function() {
 		// Gets the direction
 		var direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
 		var axeswing = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: direction*Math.PI * 2.0 }, 800 )
+	    .to( { x: direction*Math.PI * 2.0 }, entity.attackrate )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
 	    	// Makes the axe always face the initial direction

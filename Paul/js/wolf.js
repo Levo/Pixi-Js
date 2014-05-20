@@ -167,6 +167,16 @@ game.Wolf = function(position) {
 
 	this.walkingtweens.StartWalking();
 
+	this.facepaul = function(screen){
+		if(this.core.position.x > screen.paul.core.position.x){
+			this.core.scale.x = 1;
+		}
+		else
+		{
+			this.core.scale.x = -1;
+		}
+	};
+
 	this.position = function() {
 		return { x: this.core.position.x, y: this.core.position.y };
 	};
@@ -176,6 +186,9 @@ game.Wolf = function(position) {
 	};
 
 	this.update = function(delta, screen) {
+
+		this.facepaul(screen);
+
 		if (this.currentState === this.states.hunting) {
 			this.force = this.seek(screen.paul);
 		}
