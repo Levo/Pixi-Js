@@ -100,6 +100,7 @@ game.Tree = function(position, lumber) {
 	    } );
 	   	//.repeat(Infinity);
 
+<<<<<<< HEAD
 	// Spawns a lumber sprite and makes a tween to make it go
 	// from (x, y) to (x1, y1) over t milliseconds.
 	this.makeLumberSprite = function(start, end, t) {
