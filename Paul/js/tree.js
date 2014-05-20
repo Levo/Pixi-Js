@@ -184,12 +184,10 @@ game.Tree = function(position, lumber) {
 	};
 
 	this.update = function(delta, screen) {
-		var LengthOfLegs = 32;
 
-		var x = screen.paul.core.position.x;
-		var y = screen.paul.core.position.y + LengthOfLegs;
+		var p = screen.paul.position();
 
-		if (this.area.getBounds().contains(x, y)) {
+		if (this.area.getBounds().contains(p.x, p.y)) {
 			if (!this.chopping) {
 				this.chop();
 				this.area.alpha = 0.5;

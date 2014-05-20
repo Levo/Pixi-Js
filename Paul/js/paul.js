@@ -216,6 +216,15 @@ game.Paul = function() {
 		paul.mouseY = coordinates.y;
 	}
 
+	this.position = function() {
+		var LengthOfLegs = 32;
+
+		var x = this.core.position.x;
+		var y = this.core.position.y + LengthOfLegs;
+
+		return { x: x, y: y };
+	};
+
 	// This function checks which side the mouse is on relative to the core and checks what way paul is facing
 	// Depending on what way he is facing and what side the mouse is on it will give the correct direction of spin
 	this.getspindirection = function(mouseX, posX, scale){

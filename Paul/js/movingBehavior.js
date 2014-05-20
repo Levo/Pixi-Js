@@ -21,6 +21,20 @@ var game = game || {};
 		return vector; 
 	};
 
+	var subtract = function(v1, v2) {
+		return { x: v1.x - v2.x, y: v1.y - v2.y };
+	};
+
+	game.SteeringBehaviors = {
+		seek: function(target) {
+			var desiredVelocity = normalize(subtract(target.position(), myPosition.position()));
+			desiredVelocity.x *= this.maxSpeed;
+			desiredVelocity.y *= this.maxSpeed;
+
+			return subtract(desiredVelocity, this.velocity);
+		}
+	};
+
 	game.Moving = {
 		initMoving: function() {
 			this.force = { x: 0.0, y: 0.0 };

@@ -167,6 +167,9 @@ game.Wolf = function(position) {
 
 	this.walkingtweens.StartWalking();
 
+	this.position = function() {
+		return { x: this.core.position.x, y: this.core.position.y };
+	};
 
 	this.handleInput = function(input) {
 
@@ -174,12 +177,12 @@ game.Wolf = function(position) {
 
 	this.update = function(delta) {
 		if (this.currentState === this.states.hunting) {
-			
-		}
-		else if (this.currentState ==== this.states.attacking) {
 
 		}
-		
+		else if (this.currentState === this.states.attacking) {
+
+		}
+
 		this.updateSteering(delta);
 	};
 };
