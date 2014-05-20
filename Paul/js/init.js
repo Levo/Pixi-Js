@@ -98,6 +98,7 @@ var game = game || {};
 	};
 
 
+
 })();
 
 window.onload = function() {
