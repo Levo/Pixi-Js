@@ -39,6 +39,7 @@ game.PlayScreen = function() {
 		// Extend paul and wolf with the moving behavior functions
 		_.extend(this.paul, game.Moving);
 		_.extend(this.wolf, game.Moving);
+		_.extend(this.wolf, game.SteeringBehaviors);
 
 		// Call init moving to set up properties that the moving behavior requires
 		this.paul.initMoving();

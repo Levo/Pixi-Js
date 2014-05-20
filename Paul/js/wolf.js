@@ -175,9 +175,9 @@ game.Wolf = function(position) {
 
 	};
 
-	this.update = function(delta) {
+	this.update = function(delta, screen) {
 		if (this.currentState === this.states.hunting) {
-
+			this.force = this.seek(screen.paul);
 		}
 		else if (this.currentState === this.states.attacking) {
 

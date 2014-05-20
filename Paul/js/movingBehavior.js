@@ -27,7 +27,7 @@ var game = game || {};
 
 	game.SteeringBehaviors = {
 		seek: function(target) {
-			var desiredVelocity = normalize(subtract(target.position(), myPosition.position()));
+			var desiredVelocity = normalize(subtract(target.position(), this.position()));
 			desiredVelocity.x *= this.maxSpeed;
 			desiredVelocity.y *= this.maxSpeed;
 
