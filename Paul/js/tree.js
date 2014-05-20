@@ -162,9 +162,6 @@ game.Tree = function(position, lumber) {
 	// State
 	this.chopping = false;
 	this.chop = function() {
-
-		console.log("chopping started")
-
 		TrunkShake.start();
 		MiddleShake.start();
 		BottomShake.start();
@@ -193,8 +190,6 @@ game.Tree = function(position, lumber) {
 	this.update = function(delta, screen) {
 
 		var p = screen.paul.position();
-
-		console.log(" WHAT IS INDEX? FOR 400")
 
 		if (this.area.getBounds().contains(p.x, p.y)) {
 			if (!this.chopping) {
