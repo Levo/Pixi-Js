@@ -93,6 +93,7 @@ game.MillTweens = function(entity){
 
 game.LumberMill = function(position) {
 	// All the textures
+	this.areatexture = PIXI.Texture.fromImage("sprites/lumbermillarea.png");
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
 	this.millbodytexture = PIXI.Texture.fromImage("sprites/millbody.png");
 	this.bigsmoketexture = PIXI.Texture.fromImage("sprites/bigsmoke.png");
@@ -104,6 +105,7 @@ game.LumberMill = function(position) {
 	this.smallcogtexture = PIXI.Texture.fromImage("sprites/smallcog.png");
 
 	// Creating each sprite body part
+	this.area = new PIXI.Sprite(this.areatexture);
 	this.core = new PIXI.Sprite(this.coretexture);
 	this.body = new PIXI.Sprite(this.millbodytexture);
 	this.bigsmoke = new PIXI.Sprite(this.bigsmoketexture);
@@ -156,7 +158,14 @@ game.LumberMill = function(position) {
 	this.smallcog.position.x = this.core.position.x + 25;
 	this.smallcog.position.y = this.core.position.y + 35;
 	
+	//Area
+	this.area.anchor.x = 0.5;
+	this.area.anchor.y = 0.5;
+	this.area.position.x = this.core.position.x + 65;
+	this.area.position.y = this.core.position.y + 41;
+
 	// Add to stage and core
+	game.stage.addChild(this.area);
 	game.stage.addChild(this.saw);
 	game.stage.addChild(this.bigsmoke);
 	game.stage.addChild(this.smallsmoke);
@@ -179,6 +188,7 @@ game.LumberMill = function(position) {
 		game.stage.removeChild(this.core);
 		game.stage.removeChild(this.bigcog);
 		game.stage.removeChild(this.smallcog);
+		game.stage.removeChild(this.area);
 	};
 
 	this.handleInput = function(input) {

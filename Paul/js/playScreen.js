@@ -31,11 +31,11 @@ game.PlayScreen = function() {
 	};
 
 	this.enter = function() {
+		this.lumbermill = new game.LumberMill({x: 150, y:550});
 		this.paul = new game.Paul();
 		this.tree = new game.Tree({ x: 500, y: 500 }, 24);
 		this.wolf = new game.Wolf({ x: 250, y: 250});
 		this.bear = new game.Bear({ x: 350, y: 350});
-		this.lumbermill = new game.LumberMill({x: 150, y:550});
 
 		// Extend paul and wolf with the moving behavior functions
 		_.extend(this.paul, game.Moving);
@@ -51,10 +51,10 @@ game.PlayScreen = function() {
 		this.wolf.initMoving();
 		this.bear.initMoving();
 
+		this.entities.push(this.lumbermill);
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
 		this.entities.push(this.wolf);
-		this.entities.push(this.lumbermill);
 		this.entities.push(this.bear);
 	};
 
