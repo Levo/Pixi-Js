@@ -34,21 +34,26 @@ game.PlayScreen = function() {
 		this.paul = new game.Paul();
 		this.tree = new game.Tree({ x: 150, y: 100 }, 24);
 		this.wolf = new game.Wolf({ x: 250, y: 250});
+		this.bear = new game.Bear({ x: 350, y: 350});
 		this.lumbermill = new game.LumberMill({x: 150, y:550});
 
 		// Extend paul and wolf with the moving behavior functions
 		_.extend(this.paul, game.Moving);
 		_.extend(this.wolf, game.Moving);
 		_.extend(this.wolf, game.SteeringBehaviors);
+		_.extend(this.bear, game.Moving);
+		_.extend(this.bear, game.SteeringBehaviors);
 
 		// Call init moving to set up properties that the moving behavior requires
 		this.paul.initMoving();
 		this.wolf.initMoving();
+		this.bear.initMoving();
 
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
 		this.entities.push(this.wolf);
 		this.entities.push(this.lumbermill);
+		this.entities.push(this.bear);
 	};
 
 	this.exit = function() {
