@@ -201,6 +201,9 @@ game.Paul = function() {
 
 		// Calls throwaxe function
 		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
+	
+		paul.swingaxe();
+
 	}
 
 	game.stage.mousemove = function(data){
@@ -236,6 +239,10 @@ game.Paul = function() {
 
 		// Adds the axe to the entities in the currentScreen to be updated
 		game.state.currentScreen.entities.push(currentaxe);
+	};
+
+	this.swingaxe = function(){
+		this.axe.sprite.rotation += 0;
 	};
 
 	this.positionaxe = function(){
