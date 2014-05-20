@@ -84,6 +84,13 @@ game.WolfWalkingTweens = function(entity){
 };
 
 game.Wolf = function(position) {
+	this.states = {
+		hunting: 'hunting',
+		attacking: 'attacking'
+	};
+
+	this.currentState = this.states.hunting;
+
 	// All the textures
 	// Head, body, tail, 4 legs	
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
@@ -166,6 +173,13 @@ game.Wolf = function(position) {
 	};
 
 	this.update = function(delta) {
+		if (this.currentState === this.states.hunting) {
+			
+		}
+		else if (this.currentState ==== this.states.attacking) {
+
+		}
+		
 		this.updateSteering(delta);
 	};
 };
