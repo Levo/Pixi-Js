@@ -39,8 +39,6 @@ game.PlayScreen = function() {
 		}
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
-
-		game.drawCircle(100, 100, 25);
 	};
 
 	this.enter = function() {

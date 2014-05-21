@@ -23,6 +23,7 @@ var game = game || {};
 	};
 	game.input = null;
 	game.stats = null;
+	game.drawDebug = false;
 
 	game.init = function() {
 
@@ -48,8 +49,9 @@ var game = game || {};
 			'walkright' : 68,		// d
 			'walkup'	: 87,		// w
 			'walkdown'	: 83,		// s
-			'shake'		: 66,
+			'shake'		: 66,		// b
 			'throwaxe'	: 32,		// space
+			'drawdebug' : 188,		// ,
 		});
 
 		game.trigger(game.PlayScreen);
@@ -81,6 +83,10 @@ var game = game || {};
 
 		// Let current game state handle input.
 		game.state.currentScreen.handleInput(game.input);
+
+		if (game.input.pressed('drawdebug')) {
+			this.game.drawdebug = !this.game.drawdebug;
+		}
 		
 		// Update current game state
 		game.state.currentScreen.update(delta);
@@ -95,16 +101,6 @@ var game = game || {};
 		game.input.clear();
 
 		game.stats.end();
-	};
-
-	game.drawCircle = function(x, y, radius) {
-		var graphics = new PIXI.Graphics();
-
-		graphics.lineStyle(0);
-		graphics.beginFill(0xFFFF0B, 0.5);
-		graphics.drawCircle(x, y, radius);
-
-		game.stage.addChild(graphics);
 	};
 
 })();
