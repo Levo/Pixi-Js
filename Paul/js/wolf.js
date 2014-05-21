@@ -206,4 +206,5 @@ game.Wolf = function(position) {
 };
 
 _.extend(game.Wolf.prototype, game.Moving);
+_.extend(game.Wolf.prototype, game.Health);
 _.extend(game.Wolf.prototype, game.SteeringBehaviors);
