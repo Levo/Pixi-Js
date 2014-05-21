@@ -42,6 +42,6 @@ game.Collision = {
 	},
 	removeCollision: function() {
 		this.debugSphere.visible = false;
-		game.stage.removeChild(this.drawDebug);
+		game.stage.removeChild(this.debugSphere);
 	}
 };

@@ -45,21 +45,16 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	};
 
 	this.remove = function() {
+		this.removeCollision();
 		game.stage.removeChild(this.sprite);
 		var i = game.state.currentScreen.entities.indexOf(this);
 		game.state.currentScreen.entities.splice(i,1);
-
-		this.removeCollision();
 	};
 
 	this.checkbounds = function(){
 		if(this.sprite.position.x > game.renderer.width || this.sprite.position.x < 0 || this.sprite.position.y > game.renderer.height || this.sprite.position.y < 0){
 			this.remove();
 		}
-	};
-
-	this.destory = function(){
-		game.stage.removeChild(this.sprite);
 	};
 
 	this.handleInput = function(input) {
