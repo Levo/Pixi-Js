@@ -211,7 +211,7 @@ game.Paul = function() {
 		if(!paul.isattacking){
 			paul.swingaxe(paul);
 		}
-
+		paul.axe.attack = true;
 		paul.isattacking = true;
 	}
 
@@ -286,6 +286,7 @@ game.Paul = function() {
 		 	// Look inside this.positionaxe();
 		 	entity.canstop = 1;
 		 	// Allows paul to attack again
+		 	entity.axe.attack = false;
 		 	entity.isattacking = false;
 		})
 
