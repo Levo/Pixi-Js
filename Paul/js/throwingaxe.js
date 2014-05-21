@@ -8,6 +8,14 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	this.sprite.position.x = position.x;
 	this.sprite.position.y = position.y;
 
+	this.collisionSphere = {
+		// center the sphere on the center of the object
+		x: this.sprite.position.x * this.sprite.anchor.x, 
+		y: this.sprite.position.y * this.sprite.anchor.y,
+		// pick the longest side of the throwing axe sprite for the radius
+		radius: Math.max(this.sprite.width, this.sprite.height)
+	}; 
+
 	// Mouse Coordinates
 	this.mouseX = mouseX;
 	this.mouseY = mouseY;
@@ -29,6 +37,9 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 
 	// Add to stage
 	game.stage.addChild(this.sprite);
+
+	// How much dmg the axe does
+	this.dmg = 5;
 
 	this.path = function(){
 		// The path the axe will follow from the calculated angle
@@ -55,11 +66,39 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 
 	};
 
-	this.update = function(delta) {
+	this.collidesWith = function(sphere) {
+		var xd = this.collisionSphere.x - sphere.x;
+	    var yd = this.collisionSphere.y - sphere.y;
+
+	    var sumRadius = this.collisionSphere.radius + sphere.radius;
+	    var sqrRadius = sumRadius * sumRadius;
+
+	    var distSqr = (xd * xd) + (yd * yd);
+
+	    if (distSqr <= sqrRadius)
+	    {
+	        return true;
+	    }
+
+	    return false;
+	};
+
+	this.update = function(delta, screen) {
 		// Movement of the axe
 		this.path();
 
 		// Checking Bounds for deleting the object
 		this.checkbounds();
+
+		// Check to see if we have hit anything.
+		// This is probably slow because we are checking against everything.
+		// even other throwing axes.
+		for (var i = 0; i < screen.entities.length; i++) {
+			var e = screen.entities[i];
+			// e.core assumes the entity has a core sprite. : (
+			if (e.enemy && this.collidesWith(e.collisionSphere)) {
+				e.takeDamage(this.dmg);
+			}
+		}
 	};
 };

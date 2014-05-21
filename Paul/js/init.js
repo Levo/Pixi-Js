@@ -97,7 +97,15 @@ var game = game || {};
 		game.stats.end();
 	};
 
+	game.drawCircle = function(x, y, radius) {
+		var graphics = new PIXI.Graphics();
 
+		graphics.lineStyle(0);
+		graphics.beginFill(0xFFFF0B, 0.5);
+		graphics.drawCircle(x, y, radius);
+
+		game.stage.addChild(graphics);
+	};
 
 })();
 

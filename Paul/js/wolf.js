@@ -89,6 +89,8 @@ game.Wolf = function(position) {
 
 	this.maxSpeed = 150.0;
 
+	this.enemy = true;
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'
@@ -164,6 +166,15 @@ game.Wolf = function(position) {
 
 	// Add to stage
 	game.stage.addChild(this.core);
+
+	// let's guess a collision sphere.
+	this.collisionSphere = {
+		// center the sphere on the center of the object
+		x: this.core.position.x * this.core.anchor.x, 
+		y: this.core.position.y * this.core.anchor.y,
+		// pick the longest side of the throwing axe sprite for the radius
+		radius: 75
+	}; 
 
 	// Flip on x-axis
 	this.core.scale.x = -1;
