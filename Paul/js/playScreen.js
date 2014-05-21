@@ -34,21 +34,25 @@ game.PlayScreen = function() {
 		this.lumbermill = new game.LumberMill({x: 150, y:550});
 		this.paul = new game.Paul();
 		this.tree = new game.Tree({ x: 500, y: 500 }, 24);
-		this.bear = new game.Bear({ x: 350, y: 350});
 		
 		this.entities.push(this.lumbermill);
 		this.entities.push(this.paul);
 		this.entities.push(this.tree);
-		this.entities.push(this.bear);
 
 		var self = this;
 		this.wolfSpawner = new game.Spawner(game.Wolf, 4000, { x: 250, y: 250 }, function(w) {
 			self.entities.push(w);
 		});
 		this.wolfSpawner.start();
+
+		this.bearSpawner = new game.Spawner(game.Bear, 8000, { x: 350, y: 350 }, function(w) {
+			self.entities.push(w);
+		});
+		this.bearSpawner.start();
 	};
 
 	this.exit = function() {
 		this.wolfSpawner.stop();
+		this.bearSpawner.stop();
 	};
 };	
