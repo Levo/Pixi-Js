@@ -93,6 +93,7 @@ game.LumberMill = function(position) {
 	this.millboxtexture = PIXI.Texture.fromImage("sprites/millbox.png");
 	this.bigcogtexture = PIXI.Texture.fromImage("sprites/bigcog.png");
 	this.smallcogtexture = PIXI.Texture.fromImage("sprites/smallcog.png");
+	this.papertexture = PIXI.Texture.fromImage("sprites/paper.png");
 
 	// Creating each sprite body part
 	this.area = new PIXI.Sprite(this.areatexture);
@@ -185,6 +186,26 @@ game.LumberMill = function(position) {
 	    	mill.removelumber();
 	    } )
 
+	this.makePaperSprite = function(start, end, t) {
+		var sprite = new PIXI.Sprite(this.papertexture);
+		sprite.position.x = start.x;
+		sprite.position.y = start.y;
+
+		game.stage.addChild(sprite);
+
+		var tween = new TWEEN.Tween({ x: sprite.position.x, y: sprite.position.y })
+							 .to({ x: end.x, y: end.y }, t)
+							 .easing(TWEEN.Easing.Linear.None)
+							 .onUpdate(function() {
+							 	sprite.position.x = this.x;
+							 	sprite.position.y = this.y;
+							 })
+							 .onComplete(function() {
+							 	game.stage.removeChild(sprite);
+							 })
+							 .start();
+	};
+
 
 	this.destroy = function(){
 		this.milltweens.StopMill();
@@ -200,11 +221,14 @@ game.LumberMill = function(position) {
 	this.removelumber = function(){
 		// This function removes lumber from the screen
 		// and adds paper
-
 		// Right now it needs 3 lumber to create 1 paper.
 		if(game.state.currentScreen.lumber >= 3){
 			game.state.currentScreen.lumber -= 3;
 			game.state.currentScreen.paper += 1;
+
+			// makes the paper sprite, same as the log sprite
+			this.makePaperSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getPaperGUIPosition() , 1000);
+
 		}
 	};
 

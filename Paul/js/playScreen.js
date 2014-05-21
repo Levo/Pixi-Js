@@ -20,6 +20,10 @@ game.PlayScreen = function() {
 		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
 	};
 
+	this.getPaperGUIPosition = function() {
+		return { x: this.PaperGUI.sprite.position.x, y: this.PaperGUI.sprite.position.y };
+	};
+
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
 
