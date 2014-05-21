@@ -85,7 +85,7 @@ game.Tree = function(position, lumber) {
 	    .repeat(Infinity);
 
    	var TrunkShake = new TWEEN.Tween( { x: 0.0 })
-	    .to( { x: Math.PI * 2.0 }, 500 )
+	    .to( { x: Math.PI * 2.0 }, 650 )
 	    .easing( TWEEN.Easing.Elastic.Out )
 	    .onUpdate( function () {
 	        tree.trunk.position.y = this.x + tree.initialY;
@@ -124,7 +124,7 @@ game.Tree = function(position, lumber) {
     	var treeChop = new Audio("sounds/treechop.wav");
     	treeChop.play();
 
-    	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 1000);
+    	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 450);
 
 		// This just stop from giving lumber if this gets called and it does.
 		// For some reason tree.area gets removed but the bounds are still there so
@@ -146,7 +146,6 @@ game.Tree = function(position, lumber) {
     		tree.removepart(tree.middle, MiddleShake);
     		BottomShake.stop();
     	}
-    	
     	else if(tree.lumber === 0){
     		tree.removepart(tree.bottom, BottomShake);
     		// This gets called again because of this.chop() gets called and this.chop() gets called because of the area.bounds aren't clearing
