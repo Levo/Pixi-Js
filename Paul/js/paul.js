@@ -107,19 +107,9 @@ game.WalkingTweens = function(entity){
 };
 
 game.Paul = function() {
-	this.mouseX = 0;
-	this.mouseY = 0;
-	this.isattacking = false;
-	this.direction = 0;
-	this.angle = 0;
-	this.canstop = 1;
-
 	// Call init moving to set up properties that the moving behavior requires
-	this.initMoving();
-		
-	// The tween rate in seconds for attacking:  1000 would be 1 second until he can attack again
-	this.attackrate = 800;
-
+	this.initMoving();		
+	
 	// Loading all the textures for each body part
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
 	this.bodytexture = PIXI.Texture.fromImage("sprites/body.png");
@@ -196,32 +186,17 @@ game.Paul = function() {
 
 	this.stateText.setText(this.currentState.name);
 
-	this.axe = new game.Axe({x: this.core.position.x, y: this.core.position.y});
-	this.axe.sprite.anchor.x = 0.5;
-	this.axe.sprite.anchor.y = 1.0;
-	game.state.currentScreen.entities.push(this.axe);
-
 	var paul = this;
 
 	// this event will trigger when the mouse is pressed
 	game.stage.mousedown = function(data){
-		// Gets the mouse coordinates relative to the game stage
+		// Gets the direction the axe should spin
 		var coordinates = data.getLocalPosition(this);
+		var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
 
-		if(!paul.isattacking){
-			paul.swingaxe(paul);
-		}
-		paul.axe.attack = true;
-		paul.isattacking = true;
+		// Calls throwaxe function
+		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
 	}
-
-	game.stage.mousemove = function(data){
-		// Gets the mouse coordinates relative to the game stage
-		var coordinates = data.getLocalPosition(this);
-		paul.mouseX = coordinates.x;
-		paul.mouseY = coordinates.y;
-	}
-
 	this.position = function() {
 		var LengthOfLegs = 32;
 
@@ -259,58 +234,6 @@ game.Paul = function() {
 		game.state.currentScreen.entities.push(currentaxe);
 	};
 
-	this.swingaxe = function(entity){
-		// Gets the direction
-		var direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
-		var axeswing = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: direction*Math.PI * 2.0 }, entity.attackrate )
-	    .easing( TWEEN.Easing.Linear.None )
-	    .onUpdate( function () {
-	    	// Makes the axe always face the initial direction
-	    	entity.axe.sprite.scale.x = direction;
-
-	    	// Rotates the axe and swings it in a circle
-	    	// The -direction makes the axe rotate in the same way its swinging
-	    	entity.axe.sprite.position.x = -direction*(Math.cos(this.x)*25) + entity.axe.sprite.position.x;
-	    	entity.axe.sprite.position.y = -direction*(Math.sin(this.x)*25) + entity.axe.sprite.position.y;
-
-	    	// Rotates the axe 30 degrees
-	    	entity.axe.sprite.rotation = this.x/6;
-
-	    	// Look inside this.positonaxe();
-	    	entity.canstop = 0;
-	    } )
-		.onComplete(function() {
-			// Resets the axe's rotation to normal
-		 	entity.axe.sprite.rotation = 0;
-		 	// Look inside this.positionaxe();
-		 	entity.canstop = 1;
-		 	// Allows paul to attack again
-		 	entity.axe.attack = false;
-		 	entity.isattacking = false;
-		})
-
-	    axeswing.start();
-	};
-
-	this.positionaxe = function(){
-		// Finds the correct direction the axe should be facing
-		this.direction = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
-		// Finds the angle from the Mouse to the core of paul
-		this.angle = Math.atan2(this.mouseY - this.core.position.y, this.mouseX - this.core.position.x);
-		// Direction of the axe
-		this.axe.sprite.scale.x = this.direction;
-
-		// Rotates the axe around paul with the mouse movement
-		// This.canstop is a variable that goes to 0
-		// This.canstop turns off the rotation of the axe with the mouse when he is attacking
-
-		// Long story short, if paul is attacking the direction of the axe will always face the intital direction,
-		// And you can't rotate the axe around paul with the mouse if he is attacking
-		// So the swinging will always follow the same path until its complete
-		this.axe.sprite.position.x = (Math.cos(this.angle)*25 * this.canstop) + this.core.position.x;
-		this.axe.sprite.position.y = (Math.sin(this.angle)*25 * this.canstop) + this.core.position.y;
-	};
 
 	this.checkbounds = function(){
 		if(this.core.position.x < 0){
@@ -329,20 +252,11 @@ game.Paul = function() {
 
 	this.handleInput = function(input) {
 		this.currentState.handleInput(input, this);
-		if (input.pressed('throwaxe')) {
-			// Gets the direction the axe should spin
-			var spindirection = this.getspindirection(this.mouseX, this.core.position.x, this.core.scale.x);
-
-			// Calls throwaxe function
-			this.throwaxe(this.core.position.x, this.core.position.y, this.core.scale.x,this.mouseX,this.mouseY, spindirection);
-		}
 	};
 
 	this.update = function(delta, screen) {
 		this.currentState.update(delta, this);
-		this.checkbounds();
-		this.positionaxe();
-		this.updateSteering(delta);
+		this.checkbounds();		this.updateSteering(delta);
 	};
 };
 

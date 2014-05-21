@@ -48,11 +48,6 @@ game.PlayScreen = function() {
 
 	this.handleInput = function(input) {
 		this.paul.handleInput(input);
-
-		if (input.pressed('chop')) {
-    		this.tree.makeLumberSprite({ x: this.tree.area.position.x, y: this.tree.area.position.y}, this.getLumberGUIPosition(), 1000);
-			this.tree.chop();
-		}
 	};
 
 	this.update = function(delta) {
