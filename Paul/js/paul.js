@@ -43,8 +43,8 @@ game.WalkingTweens = function(entity){
 	    .onUpdate( function () {
 	    	entity.head.y = this.x;
 	    } )
-	    .repeat(Infinity)
-
+	    .repeat(Infinity
+)
     this.body = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2.0 }, 800 )
 	    .easing( TWEEN.Easing.Bounce.InOut )
@@ -312,6 +312,21 @@ game.Paul = function() {
 		this.axe.sprite.position.y = (Math.sin(this.angle)*25 * this.canstop) + this.core.position.y;
 	};
 
+	this.checkbounds = function(){
+		if(this.core.position.x < 0){
+			this.velocity.x = 1000;
+		}
+		else if(this.core.position.y > game.renderer.height){
+			this.velocity.y = -1000;
+		}
+		else if(this.core.position.y < 0){
+			this.velocity.y = 1000;
+		}
+		else if(this.core.position.x > game.renderer.width){
+			this.velocity.x = -1000;
+		}
+	};
+
 	this.handleInput = function(input) {
 		this.currentState.handleInput(input, this);
 		if (input.pressed('throwaxe')) {
@@ -325,6 +340,7 @@ game.Paul = function() {
 
 	this.update = function(delta, screen) {
 		this.currentState.update(delta, this);
+		this.checkbounds();
 		this.positionaxe();
 		this.updateSteering(delta);
 	};
