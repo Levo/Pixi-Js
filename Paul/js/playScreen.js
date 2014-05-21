@@ -40,12 +40,12 @@ game.PlayScreen = function() {
 		this.entities.push(this.tree);
 
 		var self = this;
-		this.wolfSpawner = new game.Spawner(game.Wolf, 4000, { x: 250, y: 250 }, function(w) {
+		this.wolfSpawner = new game.Spawner(game.Wolf, 1, 4000, { x: 250, y: 250 }, function(w) {
 			self.entities.push(w);
 		});
 		this.wolfSpawner.start();
 
-		this.bearSpawner = new game.Spawner(game.Bear, 8000, { x: 350, y: 350 }, function(w) {
+		this.bearSpawner = new game.Spawner(game.Bear, 1, 8000, { x: 350, y: 350 }, function(w) {
 			self.entities.push(w);
 		});
 		this.bearSpawner.start();
