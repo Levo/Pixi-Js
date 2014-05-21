@@ -79,6 +79,8 @@ game.Bear = function(position) {
 
 	this.maxSpeed = 100.0;
 
+	this.enemy = true;
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'
@@ -147,6 +149,9 @@ game.Bear = function(position) {
 	// Add to stage
 	game.stage.addChild(this.core);
 
+	this.initHealth();
+	this.initCollision(this.core.position, 25);
+
 	// Flip on x-axis
 	this.core.scale.x = 1;
 
@@ -184,8 +189,11 @@ game.Bear = function(position) {
 		}
 
 		this.updateSteering(delta);
+		this.drawDebugCollision();
 	};
 };
 
 _.extend(game.Bear.prototype, game.Moving);
 _.extend(game.Bear.prototype, game.SteeringBehaviors);
+_.extend(game.Bear.prototype, game.HP);
+_.extend(game.Bear.prototype, game.Collision);
