@@ -84,6 +84,9 @@ game.WolfWalkingTweens = function(entity){
 };
 
 game.Wolf = function(position) {
+
+	this.initMoving();
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'

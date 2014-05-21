@@ -74,6 +74,9 @@ game.BearWalkingTweens = function(entity){
 };
 
 game.Bear = function(position) {
+
+	this.initMoving();
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'

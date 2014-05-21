@@ -114,6 +114,9 @@ game.Paul = function() {
 	this.angle = 0;
 	this.canstop = 1;
 
+	// Call init moving to set up properties that the moving behavior requires
+	this.initMoving();
+		
 	// The tween rate in seconds for attacking:  1000 would be 1 second until he can attack again
 	this.attackrate = 800;
 
@@ -325,3 +328,6 @@ game.Paul = function() {
 		this.updateSteering(delta);
 	};
 };
+
+// Extend paul and wolf with the moving behavior functions
+_.extend(game.Paul.prototype, game.Moving);
