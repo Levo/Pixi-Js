@@ -166,6 +166,7 @@ game.Wolf = function(position) {
 	game.stage.addChild(this.core);
 
 	this.initMoving();
+	this.initHealth();
 	this.initCollision(this.core.position, 75);
 
 	// Flip on x-axis
@@ -211,6 +212,6 @@ game.Wolf = function(position) {
 };
 
 _.extend(game.Wolf.prototype, game.Moving);
-_.extend(game.Wolf.prototype, game.Health);
+_.extend(game.Wolf.prototype, game.HP);
 _.extend(game.Wolf.prototype, game.SteeringBehaviors);
 _.extend(game.Wolf.prototype, game.Collision);
