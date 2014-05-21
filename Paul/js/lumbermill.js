@@ -169,6 +169,7 @@ game.LumberMill = function(position) {
 
 
 	this.milltweens = new game.MillTweens(this);
+	this.milltweens.StartMill();
 
 	var mill = this;
 
