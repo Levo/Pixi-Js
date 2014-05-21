@@ -2,8 +2,8 @@ var game = game || {};
 
 game.Collision = {
 	collidesWith: function(sphere) {
-		var xd = this.collisionSphere.x - sphere.x;
-	    var yd = this.collisionSphere.y - sphere.y;
+		var xd = this.collisionSphere.position.x - sphere.position.x;
+	    var yd = this.collisionSphere.position.y - sphere.position.y;
 
 	    var sumRadius = this.collisionSphere.radius + sphere.radius;
 	    var sqrRadius = sumRadius * sumRadius;
