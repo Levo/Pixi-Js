@@ -2,16 +2,26 @@ game.PlayScreen = function() {
 
 	var self = this;
 	var lumberText = function() {
-		return 'Lumber - ' + self.lumber;
+		return 'Lumber : ' + self.lumber;
+	};
+
+	var paperText = function() {
+		return 'Paper : ' + self.paper;
 	};
 
 	this.entities = [];
 	this.lumber = 0;
+	this.paper = 0;
 
 	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, 0.0);
+	this.PaperGUI = new game.TextWidget(paperText(), game.renderer.width * 0.35, 0.0);
 
 	this.getLumberGUIPosition = function() {
 		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
+	};
+
+	this.getPaperGUIPosition = function() {
+		return { x: this.PaperGUI.sprite.position.x, y: this.PaperGUI.sprite.position.y };
 	};
 
 	this.handleInput = function(input) {
@@ -28,6 +38,7 @@ game.PlayScreen = function() {
 			this.entities[i].update(delta, this);
 		}
 		this.lumberGUI.setText(lumberText());
+		this.PaperGUI.setText(paperText());
 
 		game.drawCircle(100, 100, 25);
 	};

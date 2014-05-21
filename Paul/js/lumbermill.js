@@ -3,14 +3,6 @@ var game = game || {};
 
 game.MillTweens = function(entity){
 
-    this.body = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2}, 750 )
-	    .easing( TWEEN.Easing.Elastic.InOut )
-	    .onUpdate( function () {
-	    	entity.body.position.y = this.x;
-	    } )
-	    .repeat(Infinity)
-
 	this.saw = new TWEEN.Tween( { x: 0.0 } )
 	    .to( { x: Math.PI * 2}, 75 )
 	    .easing( TWEEN.Easing.Elastic.InOut )
@@ -69,7 +61,6 @@ game.MillTweens = function(entity){
 
 
 	this.StartMill = function(){
-		this.body.start();
 		this.saw.start();
 		this.bigcog.start();
 		this.smallcog.start();
@@ -80,7 +71,6 @@ game.MillTweens = function(entity){
 	};
 
 	this.StopMill = function(){
-		this.body.stop();
 		this.saw.stop();
 		this.bigcog.stop();
 		this.smallcog.stop();
@@ -103,6 +93,7 @@ game.LumberMill = function(position) {
 	this.millboxtexture = PIXI.Texture.fromImage("sprites/millbox.png");
 	this.bigcogtexture = PIXI.Texture.fromImage("sprites/bigcog.png");
 	this.smallcogtexture = PIXI.Texture.fromImage("sprites/smallcog.png");
+	this.papertexture = PIXI.Texture.fromImage("sprites/paper.png");
 
 	// Creating each sprite body part
 	this.area = new PIXI.Sprite(this.areatexture);
@@ -176,9 +167,45 @@ game.LumberMill = function(position) {
 	game.stage.addChild(this.bigcog);
 	game.stage.addChild(this.smallcog);
 
+
 	this.milltweens = new game.MillTweens(this);
 
-	this.milltweens.StartMill();
+	var mill = this;
+
+    var millbody = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2}, 750 )
+	    .easing( TWEEN.Easing.Elastic.InOut )
+	    .onUpdate( function () {
+	    	mill.body.position.y = this.x;
+	    } )
+	    .onComplete( function() {
+	    	this.x = 0;
+	    	// Calls itself to start again
+	    	millbody.start();
+	 		// Read Inside this.removelumber
+	    	mill.removelumber();
+	    } )
+
+	this.makePaperSprite = function(start, end, t) {
+		var sprite = new PIXI.Sprite(this.papertexture);
+		sprite.position.x = start.x;
+		sprite.position.y = start.y;
+
+		game.stage.addChild(sprite);
+
+		var tween = new TWEEN.Tween({ x: sprite.position.x, y: sprite.position.y })
+							 .to({ x: end.x, y: end.y }, t)
+							 .easing(TWEEN.Easing.Linear.None)
+							 .onUpdate(function() {
+							 	sprite.position.x = this.x;
+							 	sprite.position.y = this.y;
+							 })
+							 .onComplete(function() {
+							 	game.stage.removeChild(sprite);
+							 })
+							 .start();
+	};
+
 
 	this.destroy = function(){
 		this.milltweens.StopMill();
@@ -191,11 +218,53 @@ game.LumberMill = function(position) {
 		game.stage.removeChild(this.area);
 	};
 
+	this.removelumber = function(){
+		// This function removes lumber from the screen
+		// and adds paper
+		// Right now it needs 3 lumber to create 1 paper.
+		if(game.state.currentScreen.lumber >= 3){
+			game.state.currentScreen.lumber -= 3;
+			game.state.currentScreen.paper += 1;
+
+			// makes the paper sprite, same as the log sprite
+			this.makePaperSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getPaperGUIPosition() , 1000);
+
+		}
+	};
+
+	// Same as the tree chopping code
+	// The tween animations are breaking for some reason
+	// Need to fix it
+	this.makingpaper = false;
+	this.makepaper = function() {
+		// Starts the millbody tween
+		millbody.start();
+		this.makingpaper = true;
+	};
+
+	this.stoppaper = function() {
+		millbody.stop();
+		this.makingpaper = false;
+	};
+
 	this.handleInput = function(input) {
 
 	};
 
-	this.update = function(delta) {
+	this.update = function(delta, screen) {
+		var p = screen.paul.position();
 
+		// Checks if paul is in the area bounds
+		if (this.area.getBounds().contains(p.x, p.y)) {
+			if (!this.makingpaper) {
+				this.makepaper();
+				this.area.alpha = 0.5;
+			}
+		}
+		else {
+			this.stoppaper();
+			this.area.alpha = 0.0;
+
+		}
 	};
 };
