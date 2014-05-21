@@ -85,7 +85,7 @@ var game = game || {};
 		game.state.currentScreen.handleInput(game.input);
 
 		if (game.input.pressed('drawdebug')) {
-			this.game.drawdebug = !this.game.drawdebug;
+			this.game.drawDebug = !this.game.drawDebug;
 		}
 		
 		// Update current game state
