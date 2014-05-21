@@ -85,7 +85,7 @@ game.Tree = function(position, lumber) {
 	    .repeat(Infinity);
 
    	var TrunkShake = new TWEEN.Tween( { x: 0.0 })
-	    .to( { x: Math.PI * 2.0 }, 1080 )
+	    .to( { x: Math.PI * 2.0 }, 500 )
 	    .easing( TWEEN.Easing.Elastic.Out )
 	    .onUpdate( function () {
 	        tree.trunk.position.y = this.x + tree.initialY;

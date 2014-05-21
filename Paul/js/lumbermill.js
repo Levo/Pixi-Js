@@ -174,7 +174,7 @@ game.LumberMill = function(position) {
 	var mill = this;
 
     var millbody = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 2}, 750 )
+	    .to( { x: Math.PI * 2}, 250 )
 	    .easing( TWEEN.Easing.Elastic.InOut )
 	    .onUpdate( function () {
 	    	mill.body.position.y = this.x;
