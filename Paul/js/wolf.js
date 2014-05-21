@@ -167,7 +167,7 @@ game.Wolf = function(position) {
 
 	this.initMoving();
 	this.initHealth();
-	this.initCollision(this.core.position, 75);
+	this.initCollision(this.core.position, 15);
 
 	// Flip on x-axis
 	this.core.scale.x = -1;

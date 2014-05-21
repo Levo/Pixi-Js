@@ -33,7 +33,8 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	// How much dmg the axe does
 	this.dmg = 5;
 
-	this.initCollision(this.sprite.position, Math.max(this.sprite.width, this.sprite.height));
+	// Math.max(this.sprite.width, this.sprite.height)
+	this.initCollision(this.sprite.position, 15);
 
 	this.path = function(){
 		// The path the axe will follow from the calculated angle
