@@ -44,13 +44,17 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 		this.sprite.rotation += (this.rotationspeed) * this.spindirection;
 	};
 
+	this.remove = function() {
+		game.stage.removeChild(this.sprite);
+		var i = game.state.currentScreen.entities.indexOf(this);
+		game.state.currentScreen.entities.splice(i,1);
+
+		this.removeCollision();
+	};
+
 	this.checkbounds = function(){
 		if(this.sprite.position.x > game.renderer.width || this.sprite.position.x < 0 || this.sprite.position.y > game.renderer.height || this.sprite.position.y < 0){
-			game.stage.removeChild(this.sprite);
-			var i = game.state.currentScreen.entities.indexOf(this);
-			game.state.currentScreen.entities.splice(i,1);
-
-			this.removeCollision();
+			this.remove();
 		}
 	};
 
@@ -75,9 +79,13 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 		for (var i = 0; i < screen.entities.length; i++) {
 			var e = screen.entities[i];
 			// e.core assumes the entity has a core sprite. : (
-			//if (e.enemy && this.collidesWith(e.collisionSphere)) {
-			//	e.takeDamage(this.dmg);
-			//}
+			if (e.enemy && this.collidesWith(e.collisionSphere)) {
+				// apply dmg to what we hit.
+				e.takeDamage(this.dmg);
+
+				// the axe hit so remove it
+				this.remove();
+			}
 		}
 
 		this.drawDebugCollision();
