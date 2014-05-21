@@ -181,3 +181,6 @@ game.Bear = function(position) {
 		this.updateSteering(delta);
 	};
 };
+
+_.extend(game.Bear.prototype, game.Moving);
+_.extend(game.Bear.prototype, game.SteeringBehaviors);

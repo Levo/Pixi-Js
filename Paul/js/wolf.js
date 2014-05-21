@@ -199,3 +199,6 @@ game.Wolf = function(position) {
 		this.updateSteering(delta);
 	};
 };
+
+_.extend(game.Wolf.prototype, game.Moving);
+_.extend(game.Wolf.prototype, game.SteeringBehaviors);
