@@ -18,26 +18,26 @@ game.Collision = {
 	    return false;
 	},
 	drawDebugCollision: function() {
+		this.debugSphere.clear();
+
 		if (game.drawDebug) {
-			game.stage.addChild(this.debugSphere);
 			this.debugSphere.visible = true;
-		}
-		else {
-			this.debugSphere.visible = false;
+
+			this.debugSphere.lineStyle(0);
+			this.debugSphere.beginFill(0xFFFF0B, 0.1);
+			this.debugSphere.drawCircle(this.collisionSphere.position.x, this.collisionSphere.position.y, this.collisionSphere.radius);
 		}
 	},
 	initCollision: function(position, radius) {
 		this.collisionSphere = {
 			// center the sphere on the center of the object
-			x: position.x, 
-			y: position.y,
+			position: position,
 			// pick the longest side of the throwing axe sprite for the radius
 			radius: radius
 		};
 
 		this.debugSphere = new PIXI.Graphics();
-		this.debugSphere.lineStyle(0);
-		this.debugSphere.beginFill(0xFFFF0B, 0.5);
-		this.debugSphere.drawCircle(this.collisionSphere.x, this.collisionSphere.y, this.collisionSphere.radius);
+		game.stage.addChild(this.debugSphere);
+		this.debugSphere.visible = false;
 	}
 };
