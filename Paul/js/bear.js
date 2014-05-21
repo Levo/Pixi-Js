@@ -77,6 +77,8 @@ game.Bear = function(position) {
 
 	this.initMoving();
 
+	this.maxSpeed = 100.0;
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'

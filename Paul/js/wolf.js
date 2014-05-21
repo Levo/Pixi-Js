@@ -87,6 +87,8 @@ game.Wolf = function(position) {
 
 	this.initMoving();
 
+	this.maxSpeed = 150.0;
+
 	this.states = {
 		hunting: 'hunting',
 		attacking: 'attacking'
