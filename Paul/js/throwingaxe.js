@@ -68,11 +68,9 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 		// Checking Bounds for deleting the object
 		this.checkbounds();
 
-		// Check to see if we have hit anything.
-		// This is probably slow because we are checking against everything.
-		// even other throwing axes.
-		for (var i = 0; i < screen.entities.length; i++) {
-			var e = screen.entities[i];
+		// Only checks the animals inside the enemies array
+		for (var i = 0; i < screen.enemies.length; i++) {
+			var e = screen.enemies[i];
 			// e.core assumes the entity has a core sprite. : (
 			if (e.enemy && this.collidesWith(e.collisionSphere)) {
 				// apply dmg to what we hit.

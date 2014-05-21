@@ -10,6 +10,7 @@ game.PlayScreen = function() {
 	};
 
 	this.entities = [];
+	this.enemies = [];
 	this.lumber = 0;
 	this.paper = 0;
 
@@ -37,6 +38,9 @@ game.PlayScreen = function() {
 		for (var i = 0; i < this.entities.length; i++) {
 			this.entities[i].update(delta, this);
 		}
+		for (var i = 0; i < this.enemies.length; i++) {
+			this.enemies[i].update(delta, this);
+		};
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
 	};
@@ -52,12 +56,12 @@ game.PlayScreen = function() {
 
 		var self = this;
 		this.wolfSpawner = new game.Spawner(game.Wolf, 1, 1000, { x: 250, y: 250 }, function(w) {
-			self.entities.push(w);
+			self.enemies.push(w);
 		});
 		this.wolfSpawner.start();
 
 		this.bearSpawner = new game.Spawner(game.Bear, 1, 8000, { x: 350, y: 350 }, function(w) {
-			self.entities.push(w);
+			self.enemies.push(w);
 		});
 		this.bearSpawner.start();
 	};
