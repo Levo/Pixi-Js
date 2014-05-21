@@ -19,7 +19,11 @@ game.Collision = {
 	},
 	drawDebugCollision: function() {
 		if (game.drawDebug) {
-			game.stage.addChild(this.debugSphere);	
+			game.stage.addChild(this.debugSphere);
+			this.debugSphere.visible = true;
+		}
+		else {
+			this.debugSphere.visible = false;
 		}
 	},
 	initCollision: function(position, radius) {
