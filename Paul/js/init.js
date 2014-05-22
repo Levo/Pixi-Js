@@ -4,7 +4,7 @@ var game = game || {};
 
 	PIXI.Stage.prototype.resetStage = function() {
 		for (var i = 0; i < this.children.length; i++) {
-			console.log(this.children[i]);
+			//console.log(this.children[i]);
         	this.removeChild(this.children[i]);
 		}
 	};

@@ -49,6 +49,12 @@ game.PlayScreen = function() {
 		return (l < 50);
 	};
 
+	this.wincondition = function(){
+		if(this.paper >= 1){
+			this.exit();
+		}
+	};
+
 	this.attackPaul = function(e, dmg) {
 		e.takeDamage(dmg);
 	};
@@ -75,6 +81,9 @@ game.PlayScreen = function() {
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
 		this.hpGUI.setText(healthText(this.paul.hp));
+
+		this.wincondition();
+
 	};
 
 	this.enter = function() {
@@ -105,5 +114,6 @@ game.PlayScreen = function() {
 	this.exit = function() {
 		this.wolfSpawner.stop();
 		this.bearSpawner.stop();
+		//game.trigger(game.endScreen);
 	};
 };	
