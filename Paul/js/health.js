@@ -16,7 +16,7 @@ game.HP = {
 			this.maxSpeed = 0;
 			// Stops the walking tweens
 			this.walkingtweens.StopWalking();
-
+			this.currentState = null;
 			this.kill();
 		}
 	}

@@ -232,12 +232,12 @@ game.Wolf = function(position) {
 
 	this.update = function(delta, screen) {
 
-		this.facepaul(screen);
 
 		// are we near paul?
 		var near = screen.nearPaul(this);
 
 		if (this.currentState === this.states.hunting) {
+			this.facepaul(screen);
 			this.force = this.seek(screen.paul);
 
 			// if we are near paul chang state to attacking.
@@ -246,6 +246,7 @@ game.Wolf = function(position) {
 			}
 		}
 		else if (this.currentState === this.states.attacking) {
+			this.facepaul(screen);
 			// stop the wolf
 			this.force = { x: 0.0, y: 0.0 };
 			this.velocity = { x: 0.0, y: 0.0 };
