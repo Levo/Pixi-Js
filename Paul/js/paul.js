@@ -258,7 +258,8 @@ game.Paul = function() {
 		// pick a 0.0 - 1.0 value
 		// if you have 0 lumber t will be 1.0 and you will move at full speed
 		// if you have 12 lumber t will be at 0.0 and you will move 75% speed
-		var t = (12.0 - screen.lumber) / 12.0;
+		// clamp the t value so it doesn't go below zero.
+		var t = Math.max((12.0 - screen.lumber) / 12.0, 0.0);
 
 		// linear interpolate between .75 - 1.0 scale
 		// based on t.
