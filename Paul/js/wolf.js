@@ -191,7 +191,6 @@ game.Wolf = function(position) {
 	    } )
 	 	.onComplete(function() {
 	 		// When done it calls the remove function to delete everything
-			//wolf.remove();
 			game.stage.removeChild(wolf.core);
 			wolf.removeCollision();
 			var i = game.state.currentScreen.enemies.indexOf(wolf);
@@ -225,12 +224,6 @@ game.Wolf = function(position) {
 	this.kill = function(){
 		// Plays the death animation
 		death.start();
-		// Turns off the collision detection between the throwing axe and itself
-		this.enemy = false;
-		// Stops it from chasing paul
-		this.maxSpeed = 0;
-		// Stops the walking tweens
-		this.walkingtweens.StopWalking();
 	};
 
 	this.handleInput = function(input) {

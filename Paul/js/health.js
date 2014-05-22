@@ -8,14 +8,16 @@ game.HP = {
 		this.hp -= dmg;
 		this.core.tint = 0x7F0000;
 		if (this.hp <= 0) {
-			//this.onDeath(entity);
-			var death = new Audio("sounds/death.wav");
-			death.play();
+			var deathsound = new Audio("sounds/death.wav");
+			deathsound.play();
+			// Turns off the collision detection between the throwing axe and itself
+			this.enemy = false;
+			// Stops it from chasing paul
+			this.maxSpeed = 0;
+			// Stops the walking tweens
+			this.walkingtweens.StopWalking();
+
 			this.kill();
 		}
-	},
-	onDeath: function(entity) {
-		// The entitiy must have this kill function or it would break
-		this.kill();
 	}
 };
