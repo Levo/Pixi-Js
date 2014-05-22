@@ -236,16 +236,22 @@ game.Wolf = function(position) {
 
 		this.facepaul(screen);
 
+		var near = screen.nearPaul(this);
+
 		if (this.currentState === this.states.hunting) {
 			this.force = this.seek(screen.paul);
 
-			if (screen.nearPaul(this)) {
+			if (near) {
 				this.currentState = this.states.attacking;
 			}
 		}
 		else if (this.currentState === this.states.attacking) {
 			this.force = { x: 0.0, y: 0.0 };
 			this.velocity = { x: 0.0, y: 0.0 };
+
+			if (!near) {
+				this.currentState = this.states.hunting;
+			}
 		}
 
 		this.updateSteering(delta);
