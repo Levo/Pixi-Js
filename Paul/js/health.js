@@ -8,7 +8,8 @@ game.HP = {
 		this.hp -= dmg;
 		this.core.tint = 0x7F0000;
 		if (this.hp <= 0) {
-			this.onDeath(entity);
+			//this.onDeath(entity);
+			this.kill();
 		}
 	},
 	onDeath: function(entity) {

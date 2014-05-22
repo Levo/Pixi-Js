@@ -162,7 +162,7 @@ game.Bear = function(position) {
 	var bear = this;
 
     var death = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 5}, 750 )
+	    .to( { x: Math.PI * 5}, 250 )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
 	    	// Rotates the core 
@@ -185,10 +185,10 @@ game.Bear = function(position) {
 
 	// Removes all the components of this object from the game
 	this.remove = function(){
+		game.stage.removeChild(this.core);
 		this.removeCollision();
 		var i = game.state.currentScreen.enemies.indexOf(this);
 		game.state.currentScreen.enemies.splice(i,1);	
-		game.stage.removeChild(this.core);
 	};
 
 	// The function that gets called when it dies; health = 0;
