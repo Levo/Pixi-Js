@@ -70,16 +70,30 @@ game.PlayScreen = function() {
 		this.entities.push(this.paul);
 		//this.entities.push(this.tree);
 
+		// spawn a wolf along left edge of screen
 		var self = this;
-		this.wolfSpawner = new game.Spawner(game.Wolf, 20, 1000, { x: 250, y: 250 }, function(w) {
+		this.wolfSpawner = new game.Spawner(game.Wolf, 20, 1000, { x: 0, y: game.renderer.height * 0.5 }, function(w) {
 			self.enemies.push(w);
 		});
 		this.wolfSpawner.start();
 
-		this.bearSpawner = new game.Spawner(game.Bear, 20, 8000, { x: 350, y: 350 }, function(w) {
+		// spawn a wolf along right edge of screen
+		this.wolfSpawner2 = new game.Spawner(game.Wolf, 20, 1000, { x: game.renderer.width, y: game.renderer.height * 0.5 }, function(w) {
+			self.enemies.push(w);
+		});
+		this.wolfSpawner2.start();
+
+		// spawn a bear on the top of the screen
+		this.bearSpawner = new game.Spawner(game.Bear, 20, 8000, { x: game.renderer.width * 0.5, y: 0 }, function(w) {
 			self.enemies.push(w);
 		});
 		this.bearSpawner.start();
+
+		// spawn a bear on the bottom of the screen
+		this.bearSpawner2 = new game.Spawner(game.Bear, 20, 8000, { x: game.renderer.width * 0.5, y: game.renderer.height }, function(w) {
+			self.enemies.push(w);
+		});
+		this.bearSpawner2.start();
 	};
 
 	this.exit = function() {
