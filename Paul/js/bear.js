@@ -162,7 +162,7 @@ game.Bear = function(position) {
 	var bear = this;
 
     var death = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 5}, 250 )
+	    .to( { x: Math.PI * 2}, 125 )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
 	    	// Rotates the core 
@@ -170,7 +170,11 @@ game.Bear = function(position) {
 	    } )
 	 	.onComplete(function() {
 	 		// When done it calls the remove function to delete everything
-			bear.remove();
+			//bear.remove();
+			game.stage.removeChild(bear.core);
+			bear.removeCollision();
+			var i = game.state.currentScreen.enemies.indexOf(bear);
+			game.state.currentScreen.enemies.splice(i,1);
 		})
 
 	this.facepaul = function(screen){
@@ -193,14 +197,14 @@ game.Bear = function(position) {
 
 	// The function that gets called when it dies; health = 0;
 	this.kill = function(){
+		// Plays the death animation
+		death.start();
 		// Turns off the collision detection between the throwing axe and itself
 		this.enemy = false;
 		// Stops it from chasing paul
 		this.maxSpeed = 0;
 		// Stops the walking tweens
 		this.walkingtweens.StopWalking();
-		// Plays the death animation
-		death.start();
 	};
 
 	this.position = function() {
