@@ -89,6 +89,7 @@ game.Wolf = function(position) {
 
 	this.attackSpeed = 1000.0;
 	this.attackCooldown = 0.0;
+	this.attackDamage = 5.0;
 
 	this.enemy = true;
 
@@ -169,7 +170,7 @@ game.Wolf = function(position) {
 	game.stage.addChild(this.core);
 
 	this.initMoving();
-	this.initHealth();
+	this.initHealth(10);
 	this.initCollision(this.core.position, 15);
 
 	// Flip on x-axis
@@ -251,6 +252,12 @@ game.Wolf = function(position) {
 			// stop the wolf
 			this.force = { x: 0.0, y: 0.0 };
 			this.velocity = { x: 0.0, y: 0.0 };
+
+			if (this.attackCooldown > this.attackSpeed) {
+				screen.attackPaul(this.attackDamage);
+			}
+
+			this.attackCooldown += delta;
 
 			// if we are not near paul anymore change state
 			if (!near) {

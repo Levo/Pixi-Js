@@ -8,6 +8,9 @@ game.PlayScreen = function() {
 	var paperText = function() {
 		return 'Paper : ' + self.paper;
 	};
+	var healthText = function(health) {
+		return 'Health : ' + health;
+	};
 	this.treepositions = [];
 	this.entities = [];
 	this.enemies = [];
@@ -16,6 +19,7 @@ game.PlayScreen = function() {
 
 	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, 0.0);
 	this.PaperGUI = new game.TextWidget(paperText(), game.renderer.width * 0.35, 0.0);
+	this.hpGUI = new game.TextWidget(healthText(0), game.renderer.width * 0.5, 0.0);
 
 	this.createtreepositions = function(){
 		var position = {x:null,y:null}	
@@ -45,6 +49,10 @@ game.PlayScreen = function() {
 		return (l < 50);
 	};
 
+	this.attackPaul = function(e, dmg) {
+		e.takeDamage(dmg);
+	};
+
 	this.getLumberGUIPosition = function() {
 		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
 	};
@@ -66,6 +74,7 @@ game.PlayScreen = function() {
 		};
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
+		this.hpGUI.setText(healthText(this.paul.hp));
 	};
 
 	this.enter = function() {

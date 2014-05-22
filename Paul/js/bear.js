@@ -149,7 +149,7 @@ game.Bear = function(position) {
 	// Add to stage
 	game.stage.addChild(this.core);
 
-	this.initHealth();
+	this.initHealth(10);
 	this.initCollision(this.core.position, 25);
 
 	// Flip on x-axis

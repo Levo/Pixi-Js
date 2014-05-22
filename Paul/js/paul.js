@@ -108,7 +108,8 @@ game.WalkingTweens = function(entity){
 
 game.Paul = function() {
 	// Call init moving to set up properties that the moving behavior requires
-	this.initMoving();		
+	this.initMoving();
+	this.initHealth(100);
 	
 	// Loading all the textures for each body part
 	this.coretexture = PIXI.Texture.fromImage("sprites/core.png");
@@ -272,3 +273,4 @@ game.Paul = function() {
 
 // Extend paul and wolf with the moving behavior functions
 _.extend(game.Paul.prototype, game.Moving);
+_.extend(game.Paul.prototype, game.HP);

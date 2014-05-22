@@ -75,7 +75,7 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 			// e.core assumes the entity has a core sprite. : (
 			if (e.enemy && this.collidesWith(e.collisionSphere)) {
 				// apply dmg to what we hit.
-				e.takeDamage(this.dmg,e);
+				e.takeDamage(this.dmg);
 
 				// the axe hit so remove it
 				this.remove();
