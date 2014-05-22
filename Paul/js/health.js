@@ -9,6 +9,8 @@ game.HP = {
 		this.core.tint = 0x7F0000;
 		if (this.hp <= 0) {
 			//this.onDeath(entity);
+			var death = new Audio("sounds/death.wav");
+			death.play();
 			this.kill();
 		}
 	},

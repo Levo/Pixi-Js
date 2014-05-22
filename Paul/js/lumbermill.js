@@ -227,6 +227,9 @@ game.LumberMill = function(position) {
 			game.state.currentScreen.lumber -= 3;
 			game.state.currentScreen.paper += 1;
 
+			var paper = new Audio("sounds/paper.wav");
+			paper.play();
+
 			// makes the paper sprite, same as the log sprite
 			this.makePaperSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getPaperGUIPosition() , 1000);
 

@@ -227,6 +227,10 @@ game.Paul = function() {
 	}
 
 	this.throwaxe = function(posX, posY,scale, mouseX, mouseY, spindirection){
+
+		var throwingaxe = new Audio("sounds/throwingaxe.wav");
+    	throwingaxe.play();
+
 		// This takes the position of paul's core, scale(the direction he's facing), and the mouse coordinates, spin direction
 		// Creates the axe
 		var currentaxe = new game.ThrowingAxe({x: posX, y: posY}, scale, mouseX, mouseY, spindirection);
