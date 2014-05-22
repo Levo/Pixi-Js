@@ -121,17 +121,18 @@ game.Tree = function(position, lumber) {
 	};
 
 	this.removeLumber = function() {
-    	var treeChop = new Audio("sounds/treechop.wav");
-    	treeChop.play();
 
-    	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 450);
 
+    
 		// This just stop from giving lumber if this gets called and it does.
 		// For some reason tree.area gets removed but the bounds are still there so
 		// you can walk back into the chop area and it will call this.chop(); and start up trunkshake.start(); again
 		// the area bounds need to be cleared, i would of thought they would be removed or 0,0 or something when the object gets removed.
 		if(tree.lumber > 0){
 	    	tree.lumber -= 2;
+	    	this.makeLumberSprite({ x: this.area.position.x, y: this.area.position.y}, game.state.currentScreen.getLumberGUIPosition() , 450);
+	    	var treeChop = new Audio("sounds/treechop.wav");
+	    	treeChop.play();
 
 	    	// this is hacky
 	    	// add lumber to the current screens lumber count
