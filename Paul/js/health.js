@@ -12,8 +12,7 @@ game.HP = {
 		}
 	},
 	onDeath: function(entity) {
-		game.stage.removeChild(entity.core);
-		var i = game.state.currentScreen.enemies.indexOf(entity);
-		game.state.currentScreen.enemies.splice(i,1);	
+		// The entitiy must have this kill function or it would break
+		this.kill();
 	}
 };

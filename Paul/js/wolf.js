@@ -176,6 +176,21 @@ game.Wolf = function(position) {
 
 	this.walkingtweens.StartWalking();
 
+	var wolf = this;
+
+    var death = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 10}, 1000 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	// Rotates the core 
+	    	wolf.core.rotation = this.x;
+	    } )
+	 	.onComplete(function() {
+	 		// When done it calls the remove function to delete everything
+			wolf.remove();
+		})
+
+
 	this.facepaul = function(screen){
 		if(this.core.position.x > screen.paul.core.position.x){
 			this.core.scale.x = 1;
@@ -188,6 +203,26 @@ game.Wolf = function(position) {
 
 	this.position = function() {
 		return { x: this.core.position.x, y: this.core.position.y };
+	};
+
+	// Removes all the components of this object from the game
+	this.remove = function(){
+		this.removeCollision();
+		game.stage.removeChild(this.core);
+		var i = game.state.currentScreen.enemies.indexOf(this);
+		game.state.currentScreen.enemies.splice(i,1);	
+	};
+
+	// The function that gets called when it dies; health = 0;
+	this.kill = function(){
+		// Turns off the collision detection between the throwing axe and itself
+		this.enemy = false;
+		// Stops it from chasing paul
+		this.maxSpeed = 0;
+		// Stops the walking tweens
+		this.walkingtweens.StopWalking();
+		// Plays the death animation
+		death.start();
 	};
 
 	this.handleInput = function(input) {
