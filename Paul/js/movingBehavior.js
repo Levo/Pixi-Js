@@ -42,6 +42,7 @@ var game = game || {};
 			this.heading = { x: 0.0, y: 0.0 };
 			this.mass = 1.0;
 			this.maxSpeed = 200.0;
+			this.maxSpeedScale = 1.0;
 		},
 		updateSteering: function(delta, entity) {
 			var SteeringForce = this.force;
@@ -56,7 +57,7 @@ var game = game || {};
 			this.velocity.y += acceleration.y * delta;
 
 			// don't execeed max speed
-			this.velocity = truncate(this.velocity, this.maxSpeed);
+			this.velocity = truncate(this.velocity, this.maxSpeed * this.maxSpeedScale);
 
 			// update position.
 			// assume this has a position on the sprite
