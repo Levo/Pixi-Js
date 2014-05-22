@@ -62,8 +62,6 @@ game.Axe = function(position) {
 		if(this.attack){
 			this.checkcollision(screen);
 		}
-
-		this.drawDebugCollision();
 	};
 };
 

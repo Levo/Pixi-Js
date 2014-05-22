@@ -241,8 +241,6 @@ game.Wolf = function(position) {
 		}
 
 		this.updateSteering(delta);
-
-		this.drawDebugCollision();
 	};
 };
 

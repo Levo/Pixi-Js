@@ -36,12 +36,12 @@ game.Collision = {
 			radius: radius
 		};
 
-		this.debugSphere = new PIXI.Graphics();
-		game.stage.addChild(this.debugSphere);
-		this.debugSphere.visible = false;
+		//this.debugSphere = new PIXI.Graphics();
+		//game.stage.addChild(this.debugSphere);
+		//this.debugSphere.visible = false;
 	},
 	removeCollision: function() {
-		this.debugSphere.visible = false;
-		game.stage.removeChild(this.debugSphere);
+		//this.debugSphere.visible = false;
+		//game.stage.removeChild(this.debugSphere);
 	}
 };

@@ -82,9 +82,11 @@ var game = game || {};
 		// Let current game state handle input.
 		game.state.currentScreen.handleInput(game.input);
 
+/*
 		if (game.input.pressed('drawdebug')) {
 			this.game.drawDebug = !this.game.drawDebug;
 		}
+*/
 		
 		// Update current game state
 		game.state.currentScreen.update(delta);

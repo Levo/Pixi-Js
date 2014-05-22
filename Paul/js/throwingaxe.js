@@ -46,7 +46,7 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 	};
 
 	this.remove = function() {
-		this.removeCollision();
+		//this.removeCollision();
 		game.stage.removeChild(this.sprite);
 		var i = game.state.currentScreen.entities.indexOf(this);
 		game.state.currentScreen.entities.splice(i,1);
@@ -81,8 +81,6 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 				this.remove();
 			}
 		}
-
-		this.drawDebugCollision();
 	};
 };
 

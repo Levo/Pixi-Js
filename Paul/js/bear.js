@@ -223,7 +223,6 @@ game.Bear = function(position) {
 		}
 
 		this.updateSteering(delta);
-		this.drawDebugCollision();
 	};
 };
 
