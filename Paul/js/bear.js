@@ -162,7 +162,7 @@ game.Bear = function(position) {
 	var bear = this;
 
     var death = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 10}, 750 )
+	    .to( { x: Math.PI * 5}, 750 )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
 	    	// Rotates the core 

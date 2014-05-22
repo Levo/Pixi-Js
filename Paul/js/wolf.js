@@ -179,7 +179,7 @@ game.Wolf = function(position) {
 	var wolf = this;
 
     var death = new TWEEN.Tween( { x: 0.0 } )
-	    .to( { x: Math.PI * 10}, 500 )
+	    .to( { x: Math.PI * 5}, 500 )
 	    .easing( TWEEN.Easing.Linear.None )
 	    .onUpdate( function () {
 	    	// Rotates the core 

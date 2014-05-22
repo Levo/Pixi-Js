@@ -20,12 +20,12 @@ game.PlayScreen = function() {
 	this.createtreepositions = function(){
 		var position = {x:null,y:null}	
 		var offsetX = -50;
-		var offsetY = -75;
-		var rows = 3;
+		var offsetY = -50;
+		var rows = 4;
 		var columns = 8;
 		// Creates 3 rows
 		for (var w = 1; w < (rows+1); w++) {
-			position.y = (w*200) + offsetY;
+			position.y = (w*170) + offsetY;
 			for (var i = 1; i < (columns+1); i++) {
 				position.x = (i*150) + offsetX;
 				this.treepositions.push(position);
@@ -34,9 +34,6 @@ game.PlayScreen = function() {
 			};
 		};
 	};
-	
-	// Fills the tree position array with the spawn locations of the trees
-	this.createtreepositions();
 
 	this.getLumberGUIPosition = function() {
 		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
@@ -62,7 +59,9 @@ game.PlayScreen = function() {
 	};
 
 	this.enter = function() {
-		this.lumbermill = new game.LumberMill({x: 100, y:650});
+		this.lumbermill = new game.LumberMill({x: game.renderer.width/2, y: (game.renderer.height/2) - 35});
+		// Fills the tree position array with the spawn locations of the trees
+		this.createtreepositions();
 		this.paul = new game.Paul();
 		//this.tree = new game.Tree({ x: 500, y: 500 }, 24);
 		
