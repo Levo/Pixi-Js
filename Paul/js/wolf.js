@@ -87,6 +87,9 @@ game.Wolf = function(position) {
 
 	this.maxSpeed = 150.0;
 
+	this.attackSpeed = 1000.0;
+	this.attackCooldown = 0.0;
+
 	this.enemy = true;
 
 	this.states = {
@@ -235,9 +238,14 @@ game.Wolf = function(position) {
 
 		if (this.currentState === this.states.hunting) {
 			this.force = this.seek(screen.paul);
+
+			if (screen.nearPaul(this)) {
+				this.currentState = this.states.attacking;
+			}
 		}
 		else if (this.currentState === this.states.attacking) {
-
+			this.force = { x: 0.0, y: 0.0 };
+			this.velocity = { x: 0.0, y: 0.0 };
 		}
 
 		this.updateSteering(delta);

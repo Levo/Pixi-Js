@@ -2,17 +2,17 @@ var game = game || {};
 
 (function() {
 
-	var length = function(vector) {
+	game.length = function(vector) {
 		return Math.sqrt(vector.x * vector.x + vector.y * vector.y);
 	};
 
 	var normalize = function(vector) {
-		var l = length(vector);
+		var l = game.length(vector);
 		return { x: vector.x / l, y: vector.y / l };
 	};
 
 	var truncate = function(vector, max) {
-		if (length(vector) > max) {
+		if (game.length(vector) > max) {
 			var n = normalize(vector);
 			n.x *= max;
 			n.y *= max;
@@ -21,17 +21,17 @@ var game = game || {};
 		return vector; 
 	};
 
-	var subtract = function(v1, v2) {
+	game.subtract = function(v1, v2) {
 		return { x: v1.x - v2.x, y: v1.y - v2.y };
 	};
 
 	game.SteeringBehaviors = {
 		seek: function(target) {
-			var desiredVelocity = normalize(subtract(target.position(), this.position()));
+			var desiredVelocity = normalize(game.subtract(target.position(), this.position()));
 			desiredVelocity.x *= this.maxSpeed;
 			desiredVelocity.y *= this.maxSpeed;
 
-			return subtract(desiredVelocity, this.velocity);
+			return game.subtract(desiredVelocity, this.velocity);
 		}
 	};
 

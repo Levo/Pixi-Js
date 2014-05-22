@@ -35,6 +35,16 @@ game.PlayScreen = function() {
 		};
 	};
 
+	this.nearPaul = function(e) {
+		//console.log(this.paul.position());
+		//console.log(e.position());
+		var d = game.subtract(this.paul.position(), e.position());
+		var l = game.length(d);
+
+		// if we are within 
+		return (l < 50);
+	};
+
 	this.getLumberGUIPosition = function() {
 		return { x: this.lumberGUI.sprite.position.x, y: this.lumberGUI.sprite.position.y };
 	};
