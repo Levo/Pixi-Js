@@ -186,9 +186,9 @@ game.Bear = function(position) {
 	// Removes all the components of this object from the game
 	this.remove = function(){
 		this.removeCollision();
-		game.stage.removeChild(this.core);
 		var i = game.state.currentScreen.enemies.indexOf(this);
 		game.state.currentScreen.enemies.splice(i,1);	
+		game.stage.removeChild(this.core);
 	};
 
 	// The function that gets called when it dies; health = 0;

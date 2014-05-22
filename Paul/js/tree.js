@@ -92,9 +92,10 @@ game.Tree = function(position, lumber) {
 	    } )
 	    .onComplete( function() {
 	    	this.x = 0;
-	    	//console.log(tree.area.getBounds());
-	    	TrunkShake.start();
-	    	tree.removeLumber();
+	    	if(tree.lumber > 0){
+	    		TrunkShake.start();
+	    		tree.removeLumber();
+	    	}else{TrunkShake.stop();}
 	    } );
 	   	//.repeat(Infinity);
 
@@ -121,9 +122,6 @@ game.Tree = function(position, lumber) {
 	};
 
 	this.removeLumber = function() {
-
-
-    
 		// This just stop from giving lumber if this gets called and it does.
 		// For some reason tree.area gets removed but the bounds are still there so
 		// you can walk back into the chop area and it will call this.chop(); and start up trunkshake.start(); again
@@ -148,14 +146,12 @@ game.Tree = function(position, lumber) {
     		BottomShake.stop();
     	}
     	else if(tree.lumber === 0){
-    		tree.removepart(tree.bottom, BottomShake);
+    		TrunkShake.stop();
     		// This gets called again because of this.chop() gets called and this.chop() gets called because of the area.bounds aren't clearing
     		game.stage.removeChild(tree.area);
     		game.stage.removeChild(tree.trunk);
     		var i = game.state.currentScreen.entities.indexOf(tree);
     		game.state.currentScreen.entities.splice(i, 1);
-    		TrunkShake.stop();
-    		return;
     	}
 	};
 
