@@ -79,6 +79,10 @@ game.ThrowingAxe = function(position, scale, mouseX, mouseY, spindirection) {
 
 				// the axe hit so remove it
 				this.remove();
+
+				// if we remove this axe we shouldn't keep checking to see if 
+				// we have hit enemies.
+				break;
 			}
 		}
 	};
