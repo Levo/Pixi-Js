@@ -81,7 +81,7 @@ game.Bear = function(position) {
 
 	this.attackSpeed = 2.0;	// in seconds.
 	this.attackCooldown = 0.0;
-	this.attackDamage = 5.0;
+	this.attackDamage = 10.0;
 	this.enemy = true;
 
 	this.states = {

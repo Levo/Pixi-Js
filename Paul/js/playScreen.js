@@ -77,11 +77,15 @@ game.PlayScreen = function() {
 		}
 		for (var i = 0; i < this.enemies.length; i++) {
 			this.enemies[i].update(delta, this);
+			if(this.enemies[i].enemy === false){
+				this.enemies.splice(i,1);
+			}
 		};
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
 		this.hpGUI.setText(healthText(this.paul.hp));
 
+		console.log(this.enemies.length);
 		this.wincondition();
 
 	};
@@ -105,7 +109,7 @@ game.PlayScreen = function() {
 		this.wolfSpawner.start();
 
 		// spawn a bear on the top of the screen
-		this.bearSpawner = new game.Spawner(game.Bear, 1000, 'x', function(w) {
+		this.bearSpawner = new game.Spawner(game.Bear, 8000, 'x', function(w) {
 			self.enemies.push(w);
 		});
 		this.bearSpawner.start();
