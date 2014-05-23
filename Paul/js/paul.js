@@ -172,20 +172,11 @@ game.Paul = function() {
 	// Add to stage
 	game.stage.addChild(this.core);
 
-	this.stateText = new PIXI.Text("", game.font);
-	this.stateText.anchor.x = 0.5;
-	this.stateText.anchor.y = 0.5;
-	this.stateText.position.x = game.renderer.width / 2.0;
-	this.stateText.position.y = game.renderer.height - this.stateText.height;
-	game.stage.addChild(this.stateText);
-
 	this.walkingtweens = new game.WalkingTweens(this);
 
 	this.walkingtweens.StartWalking();
 
 	this.currentState = new game.WalkingState();
-
-	this.stateText.setText(this.currentState.name);
 
 	this.position = function() {
 		var LengthOfLegs = 32;
