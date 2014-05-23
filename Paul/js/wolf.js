@@ -89,7 +89,7 @@ game.Wolf = function(position) {
 
 	this.attackSpeed = 1.0;	// in seconds.
 	this.attackCooldown = 0.0;
-	this.attackDamage = 5.0;
+	this.attackDamage = 15.0;
 
 	this.enemy = true;
 
@@ -170,7 +170,7 @@ game.Wolf = function(position) {
 	game.stage.addChild(this.core);
 
 	this.initMoving();
-	this.initHealth(10);
+	this.initHealth(15);
 	this.initCollision(this.core.position, 15);
 
 	// Flip on x-axis

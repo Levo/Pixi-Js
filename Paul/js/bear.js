@@ -81,7 +81,7 @@ game.Bear = function(position) {
 
 	this.attackSpeed = 2.0;	// in seconds.
 	this.attackCooldown = 0.0;
-	this.attackDamage = 10.0;
+	this.attackDamage = 25.0;
 	this.enemy = true;
 
 	this.states = {
@@ -152,7 +152,7 @@ game.Bear = function(position) {
 	// Add to stage
 	game.stage.addChild(this.core);
 
-	this.initHealth(10);
+	this.initHealth(20);
 	this.initCollision(this.core.position, 25);
 
 	// Flip on x-axis
