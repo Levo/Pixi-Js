@@ -87,7 +87,7 @@ game.Wolf = function(position) {
 
 	this.maxSpeed = 150.0;
 
-	this.attackSpeed = 1000.0;
+	this.attackSpeed = 2.0;	// in seconds.
 	this.attackCooldown = 0.0;
 	this.attackDamage = 5.0;
 
@@ -252,7 +252,7 @@ game.Wolf = function(position) {
 			this.velocity = { x: 0.0, y: 0.0 };
 
 			if (this.attackCooldown > this.attackSpeed) {
-				screen.attackPaul(this.attackDamage);
+				screen.attackPaul(this, this.attackDamage);
 			}
 
 			this.attackCooldown += delta;

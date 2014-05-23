@@ -178,6 +178,24 @@ game.Paul = function() {
 
 	this.currentState = new game.WalkingState();
 
+	var paul = this;
+
+	var death = new TWEEN.Tween( { x: 0.0 } )
+	    .to( { x: Math.PI * 2}, 125 )
+	    .easing( TWEEN.Easing.Linear.None )
+	    .onUpdate( function () {
+	    	// Rotates the core 
+	    	paul.core.rotation = this.x;
+	    } );
+
+	// The function that gets called when it dies; health = 0;
+	this.kill = function(){
+		// Plays the death animation
+		death.start();
+		// lose the game.
+		game.trigger(game.loseScreen);
+	};
+
 	this.position = function() {
 		var LengthOfLegs = 32;
 

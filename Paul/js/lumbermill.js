@@ -202,8 +202,9 @@ game.LumberMill = function(position) {
 							 	sprite.position.y = this.y;
 							 })
 							 .onComplete(function() {
-							 	if (game.stage.children.indexOf(sprite) !== -1)
+							 	if (game.stage.children.indexOf(sprite) !== -1) {
 							 		game.stage.removeChild(sprite);
+							 	}
 							 })
 							 .start();
 	};

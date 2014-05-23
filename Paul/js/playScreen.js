@@ -56,7 +56,7 @@ game.PlayScreen = function() {
 	};
 
 	this.attackPaul = function(e, dmg) {
-		e.takeDamage(dmg);
+		this.paul.takeDamage(dmg);
 	};
 
 	this.getLumberGUIPosition = function() {
