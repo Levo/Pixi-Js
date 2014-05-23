@@ -176,7 +176,7 @@ game.Wolf = function(position) {
 	// Flip on x-axis
 	this.core.scale.x = -1;
 
-	this.walkingtweens = new game.WolfWalkingTweens(this);
+	this.walkingtweens = new game.WolfWalkingTweens(this); 
 
 	this.walkingtweens.StartWalking();
 
@@ -191,10 +191,12 @@ game.Wolf = function(position) {
 	    } )
 	 	.onComplete(function() {
 	 		// When done it calls the remove function to delete everything
-			game.stage.removeChild(wolf.core);
-			wolf.removeCollision();
-			var i = game.state.currentScreen.enemies.indexOf(wolf);
-			game.state.currentScreen.enemies.splice(i,1);	
+	 		if (game.stage.children.indexOf(wolf.core) !== -1) {
+	 			//var i = game.state.currentScreen.enemies.indexOf(wolf);
+				//game.state.currentScreen.enemies.splice(i,1);	
+				game.stage.removeChild(wolf.core);
+				wolf.removeCollision();
+			}
 		})
 
 

@@ -79,6 +79,9 @@ game.Bear = function(position) {
 
 	this.maxSpeed = 100.0;
 
+	this.attackSpeed = 2.0;	// in seconds.
+	this.attackCooldown = 0.0;
+	this.attackDamage = 5.0;
 	this.enemy = true;
 
 	this.states = {
@@ -170,10 +173,12 @@ game.Bear = function(position) {
 	    } )
 	 	.onComplete(function() {
 	 		// When done it calls the remove function to delete everything
+	 		if (game.stage.children.indexOf(bear.core) !== -1) {
 			game.stage.removeChild(bear.core);
 			bear.removeCollision();
-			var i = game.state.currentScreen.enemies.indexOf(bear);
-			game.state.currentScreen.enemies.splice(i,1);
+			//var i = game.state.currentScreen.enemies.indexOf(bear);
+			//game.state.currentScreen.enemies.splice(i,1);
+			}
 		})
 
 	this.facepaul = function(screen){
@@ -224,16 +229,23 @@ game.Bear = function(position) {
 		}
 		else if (this.currentState === this.states.attacking) {
 			this.facepaul(screen);
-			// stop the bear
+			// stop the wolf
 			this.force = { x: 0.0, y: 0.0 };
 			this.velocity = { x: 0.0, y: 0.0 };
+
+			if (this.attackCooldown > this.attackSpeed) {
+				screen.attackPaul(this, this.attackDamage);
+
+				this.attackCooldown = 0.0;
+			}
+
+			this.attackCooldown += delta;
 
 			// if we are not near paul anymore change state
 			if (!near) {
 				this.currentState = this.states.hunting;
 			}
 		}
-
 		this.updateSteering(delta);
 	};
 };

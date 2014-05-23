@@ -105,7 +105,7 @@ game.PlayScreen = function() {
 		this.wolfSpawner.start();
 
 		// spawn a bear on the top of the screen
-		this.bearSpawner = new game.Spawner(game.Bear, 8000, 'x', function(w) {
+		this.bearSpawner = new game.Spawner(game.Bear, 1000, 'x', function(w) {
 			self.enemies.push(w);
 		});
 		this.bearSpawner.start();
