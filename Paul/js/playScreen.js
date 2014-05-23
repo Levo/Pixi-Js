@@ -11,6 +11,15 @@ game.PlayScreen = function() {
 	var healthText = function(health) {
 		return 'Health : ' + health;
 	};
+
+	var infoText = function(){
+		return '3 Lumber = 1 Paper     100 Paper to Win';
+	};
+
+	var controlsText = function(){
+		return 'Move : WASD   Fire : Leftclick';
+	};
+
 	this.treepositions = [];
 	this.entities = [];
 	this.enemies = [];
@@ -20,7 +29,9 @@ game.PlayScreen = function() {
 	this.lumberGUI = new game.TextWidget(lumberText(), game.renderer.width * 0.25, 0.0);
 	this.PaperGUI = new game.TextWidget(paperText(), game.renderer.width * 0.35, 0.0);
 	this.hpGUI = new game.TextWidget(healthText(0), game.renderer.width * 0.5, 0.0);
-
+	this.infoGUI = new game.TextWidget(infoText(), game.renderer.width * 0.65, 0.0);
+	this.controlsGUI = new game.TextWidget(controlsText(), game.renderer.width * 0.65, game.renderer.height * 0.025);
+	
 	this.createtreepositions = function(){
 		var position = {x:null,y:null}	
 		var offsetX = -50;
@@ -50,7 +61,7 @@ game.PlayScreen = function() {
 	};
 
 	this.wincondition = function(){
-		if(this.paper >= 1){
+		if(this.paper >= 100){
 			game.trigger(game.endScreen);
 		}
 	};
@@ -84,8 +95,9 @@ game.PlayScreen = function() {
 		this.lumberGUI.setText(lumberText());
 		this.PaperGUI.setText(paperText());
 		this.hpGUI.setText(healthText(this.paul.hp));
+		this.infoGUI.setText(infoText());
+		this.controlsGUI.setText(controlsText());
 
-		console.log(this.enemies.length);
 		this.wincondition();
 
 	};
