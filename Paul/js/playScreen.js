@@ -51,7 +51,7 @@ game.PlayScreen = function() {
 
 	this.wincondition = function(){
 		if(this.paper >= 1){
-			this.exit();
+			game.trigger(game.endScreen);
 		}
 	};
 
@@ -114,6 +114,5 @@ game.PlayScreen = function() {
 	this.exit = function() {
 		this.wolfSpawner.stop();
 		this.bearSpawner.stop();
-		//game.trigger(game.endScreen);
 	};
 };	
