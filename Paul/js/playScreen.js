@@ -109,10 +109,24 @@ game.PlayScreen = function() {
 			self.enemies.push(w);
 		});
 		this.bearSpawner.start();
+
+		var paul = this.paul;
+
+		// this event will trigger when the mouse is pressed
+		game.stage.mousedown = function(data){
+			// Gets the direction the axe should spin
+			var coordinates = data.getLocalPosition(this);
+			var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
+
+			// Calls throwaxe function
+			paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
+		};
 	};
 
 	this.exit = function() {
 		this.wolfSpawner.stop();
 		this.bearSpawner.stop();
+
+		game.stage.mousedown = function(data) {};
 	};
 };	

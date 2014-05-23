@@ -187,17 +187,6 @@ game.Paul = function() {
 
 	this.stateText.setText(this.currentState.name);
 
-	var paul = this;
-
-	// this event will trigger when the mouse is pressed
-	game.stage.mousedown = function(data){
-		// Gets the direction the axe should spin
-		var coordinates = data.getLocalPosition(this);
-		var spindirection = paul.getspindirection(coordinates.x, paul.core.position.x, paul.core.scale.x);
-
-		// Calls throwaxe function
-		paul.throwaxe(paul.core.position.x, paul.core.position.y, paul.core.scale.x,coordinates.x,coordinates.y, spindirection);
-	}
 	this.position = function() {
 		var LengthOfLegs = 32;
 
